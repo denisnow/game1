@@ -17,8 +17,8 @@
 				border-style: solid;
 				border-width: 2px;
 				border-color: grey;
-				height: 198px;
- 				width: 198px;
+				height: 398px;
+ 				width: 398px;
 				left: 0px;
 				top: 0px;
 			}
@@ -108,26 +108,26 @@
 				function renderNumbers() {
 
 					var number, ctx;
-					var side = 50;
+					var side = 100;
 
 					for (var i = 0; i < 4; i++) { 
 						for (var j = 0; j < 4; j++) {
 							if (matrix[i][j]) {
 								number = document.createElement("canvas");
-								number.setAttribute("height", "52px;");
-								number.setAttribute("width", "52px;");
-								number.setAttribute("style", "left: " + 50*j + "px; top: " + 50*i + "px;");
+								number.setAttribute("height", "102px;");
+								number.setAttribute("width", "102px;");
+								number.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
 								number.m=i;
 								number.n=j;
 								ctx = number.getContext("2d");
 								ctx.strokeStyle = "grey";
 								ctx.lineWidth = 2;
 								ctx.strokeRect(1,1,side,side);
-								ctx.font = "28px verdana";
+								ctx.font = "33px verdana";
 								ctx.textAlign = "center";
 								ctx.textBaseline = "middle";
 								ctx.fillStyle = "#333333";
-								ctx.fillText(matrix[i][j], 25, 26);
+								ctx.fillText(matrix[i][j], 50, 51);
 								box.appendChild(number);
 							}
 							else {
