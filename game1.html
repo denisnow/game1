@@ -38,6 +38,7 @@
 		<script>
 
 			var matrix;
+			var empty = {};
 
 			function makeMatrix() {
 
@@ -121,6 +122,10 @@
 								ctx.textBaseline = "middle";
 								ctx.fillText(matrix[i][j], 25, 26);
 								box.appendChild(number);
+							}
+							else {
+								empty.m = i;
+								empty.n = j;
 							}
 						}
 					}
