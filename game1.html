@@ -10,10 +10,17 @@
 		<style>
 
 			.box {
+				position: fixed;
 				border-style: solid;
 				border-width: 2px;
-				height: 200px;
- 				width: 200px;
+				height: 198px;
+ 				width: 198px;
+				left: 0px;
+				top: 0px;
+			}
+
+			canvas {
+				position: fixed;
 			}
 
 		</style>
@@ -23,7 +30,7 @@
 	<body>
 
 		<noscript>
-			This page requires JavaScript. <br><br>
+			This page requires JavaScript.<br><br>
 			Your browser doesn't support JavaScript or JavaScript is disabled.<br><br>
 			Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.
 		</noscript>
@@ -58,8 +65,8 @@
 				function createMatrix() {
 
 					matrix = [];
-					for (var i = 0; i < 4; i++) { 
-						matrix[i] = []; 
+					for (var i = 0; i < 4; i++) {
+						matrix[i] = [];
 					}
 				}
 
@@ -67,9 +74,9 @@
 
 					var index = 0;
 
-					for (var i = 0; i < 4; i++) { 
-						for (var j = 0; j < 4; j++) { 
-							matrix[i][j] = arr[index++]; 
+					for (var i = 0; i < 4; i++) {
+						for (var j = 0; j < 4; j++) {
+							matrix[i][j] = arr[index++];
 						}
 					}
 				}
@@ -80,7 +87,51 @@
 				fillMatrix();
 			}
 
+			function renderBoard() {
+
+				var box;
+
+				function renderBox() {
+
+					box = document.createElement("div");
+					box.className = "box";
+					document.body.appendChild(box);
+				}
+
+				function renderNumbers() {
+
+					var number, ctx;
+					var side = 50;
+
+					for (var i = 0; i < 4; i++) { 
+						for (var j = 0; j < 4; j++) {
+							if (matrix[i][j]) {
+								number = document.createElement("canvas");
+								number.setAttribute("height", "52px;");
+								number.setAttribute("width", "52px;");
+								number.setAttribute("style", "left: " + 50*j + "px; top: " + 50*i + "px;");
+								number.m=i;
+								number.n=j;
+								ctx = number.getContext("2d");
+								ctx.strokeStyle = "black";
+								ctx.lineWidth = 2;
+								ctx.strokeRect(1,1,side,side);
+								ctx.font = "28px verdana";
+								ctx.textAlign = "center";
+								ctx.textBaseline = "middle";
+								ctx.fillText(matrix[i][j], 25, 26);
+								box.appendChild(number);
+							}
+						}
+					}
+				}
+
+				renderBox();
+				renderNumbers();
+			}
+
 			makeMatrix();
+			renderBoard();
 
 		</script>
 
