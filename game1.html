@@ -9,10 +9,14 @@
 
 		<style>
 
+			body {
+				background-image: url('./img/bg.gif');
+			}
 			.box {
 				position: fixed;
 				border-style: solid;
 				border-width: 2px;
+				border-color: grey;
 				height: 198px;
  				width: 198px;
 				left: 0px;
@@ -21,6 +25,8 @@
 
 			canvas {
 				position: fixed;
+				background-color: white;
+				opacity: 0.75;
 			}
 
 		</style>
@@ -114,12 +120,13 @@
 								number.m=i;
 								number.n=j;
 								ctx = number.getContext("2d");
-								ctx.strokeStyle = "black";
+								ctx.strokeStyle = "grey";
 								ctx.lineWidth = 2;
 								ctx.strokeRect(1,1,side,side);
 								ctx.font = "28px verdana";
 								ctx.textAlign = "center";
 								ctx.textBaseline = "middle";
+								ctx.fillStyle = "#333333";
 								ctx.fillText(matrix[i][j], 25, 26);
 								box.appendChild(number);
 							}
