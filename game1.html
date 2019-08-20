@@ -95,7 +95,8 @@
 
 					for (var i = 0; i < 4; i++) {
 						for (var j = 0; j < 4; j++) {
-							matrix[i][j] = arr[index++];
+							matrix[i][j] = {};
+							matrix[i][j].value = arr[index++];
 						}
 					}
 				}
@@ -123,7 +124,7 @@
 
 					for (var i = 0; i < 4; i++) {
 						for (var j = 0; j < 4; j++) {
-							if (matrix[i][j]) {
+							if (matrix[i][j].value) {
 								block = document.createElement("div");
 								block.className = "block";
 								block.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
@@ -131,9 +132,10 @@
 								block.n=j;
 								text = document.createElement("div");
 								text.className = "blockText";
-								text.textContent = (matrix[i][j]);
+								text.textContent = (matrix[i][j].value);
 								block.appendChild(text);
 								box.appendChild(block);
+								matrix[i][j].element = block;
 							}
 							else {
 								empty.m = i;
@@ -149,6 +151,8 @@
 
 			makeMatrix();
 			renderBoard();
+
+			console.log(matrix);
 
 		</script>
 
