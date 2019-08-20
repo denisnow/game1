@@ -9,24 +9,37 @@
 
 		<style>
 
+			@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
+
 			body {
 				background-image: url('./img/bg.gif');
-			}
-			.box {
-				position: fixed;
-				border-style: solid;
-				border-width: 2px;
-				border-color: grey;
-				height: 398px;
- 				width: 398px;
-				left: 0px;
-				top: 0px;
+				font-family: "Roboto Mono", monospace;
+				font-size: 28px;
 			}
 
-			canvas {
-				position: fixed;
+			.box {
+				position: absolute;
+				height: 400px;
+ 				width: 400px;
+				left: 50%;
+				top: 50%;
+				margin: -200px 0 0 -200px;
+			}
+
+			.block {
+				position: absolute;
 				background-color: white;
-				opacity: 0.75;
+				opacity: 0.77;
+			}
+
+			.blockText {
+				display: table-cell;
+				position: relative;
+				text-align: center;
+				vertical-align: middle;
+				height: 96px;
+ 				width: 96px;
+				color: #237678;
 			}
 
 		</style>
@@ -107,27 +120,20 @@
 
 				function renderNumbers() {
 
-					var number, ctx;
-					var side = 100;
+					var number, nr;
 
-					for (var i = 0; i < 4; i++) { 
+					for (var i = 0; i < 4; i++) {
 						for (var j = 0; j < 4; j++) {
 							if (matrix[i][j]) {
-								number = document.createElement("canvas");
-								number.setAttribute("height", "102px;");
-								number.setAttribute("width", "102px;");
+								number = document.createElement("div");
+								number.className = "block";
 								number.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
 								number.m=i;
 								number.n=j;
-								ctx = number.getContext("2d");
-								ctx.strokeStyle = "grey";
-								ctx.lineWidth = 2;
-								ctx.strokeRect(1,1,side,side);
-								ctx.font = "33px verdana";
-								ctx.textAlign = "center";
-								ctx.textBaseline = "middle";
-								ctx.fillStyle = "#333333";
-								ctx.fillText(matrix[i][j], 50, 51);
+								nr = document.createElement("div");
+								nr.className = "blockText";
+								nr.textContent = (matrix[i][j]);
+								number.appendChild(nr);
 								box.appendChild(number);
 							}
 							else {
