@@ -64,21 +64,22 @@
 
 				function makeArray() {
 
-					for (var i=0; i<16; i++) arr.push(i);
-				}
+					function shuffleArray() {
 
-				function shuffleArray() {
+						var random, temp;
 
-					var random, temp;
-
-					for (var i = arr.length-1; i > 0; i--) {
-						random = Math.floor(Math.random()*(i+1));
-						if (arr[random] !== arr[i]) {
-							temp = arr[random];
-							arr[random] = arr[i];
-							arr[i] = temp;
+						for (var i = arr.length-1; i > 0; i--) {
+							random = Math.floor(Math.random()*(i+1));
+							if (arr[random] !== arr[i]) {
+								temp = arr[random];
+								arr[random] = arr[i];
+								arr[i] = temp;
+							}
 						}
 					}
+
+					for (var i=0; i<16; i++) arr.push(i);
+					shuffleArray();
 				}
 
 				function fillMatrix() {
@@ -96,7 +97,6 @@
 				}
 
 				makeArray();
-				shuffleArray();
 				fillMatrix();
 			}
 
