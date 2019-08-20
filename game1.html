@@ -117,7 +117,7 @@
 					document.body.appendChild(box);
 				}
 
-				function renderNumbers() {
+				function renderBlocks() {
 
 					var number, nr;
 
@@ -129,7 +129,7 @@
 								number.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
 								number.m=i;
 								number.n=j;
-								nr = document.createElement("div");
+								nr = document.createElement("div"); 
 								nr.className = "blockText";
 								nr.textContent = (matrix[i][j]);
 								number.appendChild(nr);
@@ -144,7 +144,7 @@
 				}
 
 				renderBox();
-				renderNumbers();
+				renderBlocks();
 			}
 
 			makeMatrix();
