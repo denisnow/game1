@@ -119,21 +119,21 @@
 
 				function renderBlocks() {
 
-					var number, nr;
+					var block, text;
 
 					for (var i = 0; i < 4; i++) {
 						for (var j = 0; j < 4; j++) {
 							if (matrix[i][j]) {
-								number = document.createElement("div");
-								number.className = "block";
-								number.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
-								number.m=i;
-								number.n=j;
-								nr = document.createElement("div"); 
-								nr.className = "blockText";
-								nr.textContent = (matrix[i][j]);
-								number.appendChild(nr);
-								box.appendChild(number);
+								block = document.createElement("div");
+								block.className = "block";
+								block.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
+								block.m=i;
+								block.n=j;
+								text = document.createElement("div");
+								text.className = "blockText";
+								text.textContent = (matrix[i][j]);
+								block.appendChild(text);
+								box.appendChild(block);
 							}
 							else {
 								empty.m = i;
