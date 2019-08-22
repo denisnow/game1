@@ -61,6 +61,7 @@
 			function makeMatrix() {
 
 				var arr = [];
+				var arrIndex = 0;
 
 				function makeArray() {
 
@@ -82,22 +83,15 @@
 					shuffleArray();
 				}
 
-				function fillMatrix() {
-
-					var index = 0;
-
-					matrix = [];
-					for (var i = 0; i < 4; i++) {
-						matrix[i] = [];
-						for (var j = 0; j < 4; j++) {
-							matrix[i][j] = {};
-							matrix[i][j].value = arr[index++];
-						}
+				makeArray();
+				matrix = [];
+				for (var i = 0; i < 4; i++) {
+					matrix[i] = [];
+					for (var j = 0; j < 4; j++) {
+						matrix[i][j] = {};
+						matrix[i][j].value = arr[arrIndex++];
 					}
 				}
-
-				makeArray();
-				fillMatrix();
 			}
 
 			function renderBoard() {
