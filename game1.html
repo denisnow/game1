@@ -165,7 +165,7 @@
 				function makeBlocksMovable (element) {
 
 					addClass(element, "clickable");
-					box.addEventListener("click", onButtonClick, false);
+					box.addEventListener("click", onButtonClick);
 				}
 
 				processPotentiallyMovableBlocks(makeBlocksMovable)
