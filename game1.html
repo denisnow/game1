@@ -147,10 +147,10 @@
 
 				function processPotentiallyMovableBlocks(callback) {
 
-					if (empty.m) for (var i = 0; i < empty.m; i++) callback(matrix[i][empty.n].element); //processBlocksAboveVoid
-					if (empty.m !== 3) for (var i = 3; i > empty.m; i--) callback(matrix[i][empty.n].element); //processBlocksBelowVoid
-					if (empty.n)  for (var i = 0; i < empty.n; i++) callback(matrix[empty.m][i].element); //processOnTheRightOfVoid
-					if (empty.n !== 3) for (var i = 3; i > empty.n; i--) callback(matrix[empty.m][i].element); //processOnTheLeftOfVoid
+					for (var i = 0; i < 4; i++) {
+						if (i !== empty.n) callback(matrix[empty.m][i].element);
+						if (i !== empty.m) callback(matrix[i][empty.n].element);
+					}
 				}
 
 				function addClass(element, classNameToAdd) {
