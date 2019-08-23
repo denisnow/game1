@@ -15,6 +15,7 @@
 				background-image: url('./img/bg.gif');
 				font-family: "Roboto Mono", monospace;
 				font-size: 28px;
+				color: #298f91;
 			}
 
 			.box {
@@ -38,7 +39,15 @@
 				vertical-align: middle;
 				height: 96px;
  				width: 96px;
-				color: #237678;
+			}
+
+			.text {
+				background-color: white;
+				opacity: 0.77;
+			}
+
+			.clickable {
+				cursor: pointer;
 			}
 
 		</style>
@@ -48,15 +57,15 @@
 	<body>
 
 		<noscript>
-			This page requires JavaScript.<br><br>
-			Your browser doesn't support JavaScript or JavaScript is disabled.<br><br>
-			Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.
+			<span class="text">This page requires JavaScript.</span><br><br>
+			<span class="text">Your browser doesn't support JavaScript or JavaScript is disabled.</span><br><br>
+			<span class="text">Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</span>
 		</noscript>
 
 		<script>
 
-			var matrix;
-			var empty = {};
+			var matrix, box;
+			var empty = {}; //void
 
 			function makeMatrix() {
 
@@ -96,8 +105,6 @@
 
 			function renderBoard() {
 
-				var box;
-
 				function renderBox() {
 
 					box = document.createElement("div");
@@ -136,8 +143,38 @@
 				renderBlocks();
 			}
 
+			function makeBoardClickable() {
+
+				function processPotentiallyMovableBlocks(callback) {
+
+					if (empty.m) for (var i = 0; i < empty.m; i++) callback(matrix[i][empty.n].element); //processBlocksAboveVoid
+					if (empty.m !== 3) for (var i = 3; i > empty.m; i--) callback(matrix[i][empty.n].element); //processBlocksBelowVoid
+					if (empty.n)  for (var i = 0; i < empty.n; i++) callback(matrix[empty.m][i].element); //processOnTheRightOfVoid
+					if (empty.n !== 3) for (var i = 3; i > empty.n; i--) callback(matrix[empty.m][i].element); //processOnTheLeftOfVoid
+				}
+
+				function addClass(element, classNameToAdd) {
+					element.className += " " + classNameToAdd;
+				}
+
+				function onButtonClick (e) {
+
+ 					classArr = e.target.parentNode.className.split(" ");
+					if (classArr.indexOf("clickable") !== -1) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
+				}
+
+				function makeBlocksMovable (element) {
+
+					addClass(element, "clickable");
+					box.addEventListener("click", onButtonClick, false);
+				}
+
+				processPotentiallyMovableBlocks(makeBlocksMovable)
+			}
+
 			makeMatrix();
 			renderBoard();
+			makeBoardClickable();
 
 		</script>
 
