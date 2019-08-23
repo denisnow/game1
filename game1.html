@@ -28,11 +28,9 @@
 
 			.block {
 				position: absolute;
-				background-color: white;
-				opacity: 0.77;
 			}
 
-			.blockText {
+			.blockNumber {
 				display: table-cell;
 				position: relative;
 				text-align: center;
@@ -114,7 +112,7 @@
 
 				function renderBlocks() {
 
-					var block, text;
+					var block, blockNumber;
 
 					for (var i = 0; i < 4; i++) {
 						for (var j = 0; j < 4; j++) {
@@ -124,10 +122,10 @@
 								block.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
 								block.m=i;
 								block.n=j;
-								text = document.createElement("div");
-								text.className = "blockText";
-								text.textContent = (matrix[i][j].value);
-								block.appendChild(text);
+								blockNumber = document.createElement("div");
+								blockNumber.className = "blockNumber text";
+								blockNumber.textContent = (matrix[i][j].value);
+								block.appendChild(blockNumber);
 								box.appendChild(block);
 								matrix[i][j].element = block;
 							}
