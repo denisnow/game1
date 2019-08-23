@@ -159,7 +159,8 @@
 
 				function onButtonClick (e) {
 
- 					classArr = e.target.parentNode.className.split(" ");
+ 					var classArr = e.target.parentNode.className.split(" ");
+
 					if (classArr.indexOf("clickable") !== -1) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
 				}
 
