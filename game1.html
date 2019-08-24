@@ -9,7 +9,7 @@
 
 		<style>
 
-			@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
+
 
 			body {
 				background-image: url('./img/bg.gif');
@@ -65,42 +65,6 @@
 			var matrix, box;
 			var empty = {}; //void
 
-			function makeMatrix() {
-
-				var arr = [];
-				var arrIndex = 0;
-
-				function makeArray() {
-
-					function shuffleArray() {
-
-						var random, temp;
-
-						for (var i = arr.length-1; i > 0; i--) {
-							random = Math.floor(Math.random()*(i+1));
-							if (arr[random] !== arr[i]) {
-								temp = arr[random];
-								arr[random] = arr[i];
-								arr[i] = temp;
-							}
-						}
-					}
-
-					for (var i=0; i<16; i++) arr.push(i);
-					shuffleArray();
-				}
-
-				makeArray();
-				matrix = [];
-				for (var i = 0; i < 4; i++) {
-					matrix[i] = [];
-					for (var j = 0; j < 4; j++) {
-						matrix[i][j] = {};
-						matrix[i][j].value = arr[arrIndex++];
-					}
-				}
-			}
-
 			function renderBoard() {
 
 				function renderBox() {
@@ -110,12 +74,39 @@
 					document.body.appendChild(box);
 				}
 
-				function renderBlocks() {
+				function makeMatrixAndRenderBlocks() {
 
-					var block, blockNumber;
+					var block, blockNumber, arr;
+					var arrIndex = 0;
 
+					function makeArray() {
+
+						function shuffleArray() {
+
+							var random, temp;
+
+							for (var i = arr.length-1; i > 0; i--) {
+								random = Math.floor(Math.random()*(i+1));
+								if (arr[random] !== arr[i]) {
+									temp = arr[random];
+									arr[random] = arr[i];
+									arr[i] = temp;
+								}
+							}
+						}
+
+						arr = [];
+						for (var i=0; i<16; i++) arr.push(i);
+						shuffleArray();
+					}
+
+					makeArray();
+					matrix = [];
 					for (var i = 0; i < 4; i++) {
+						matrix[i] = [];
 						for (var j = 0; j < 4; j++) {
+							matrix[i][j] = {};
+							matrix[i][j].value = arr[arrIndex++];
 							if (matrix[i][j].value) {
 								block = document.createElement("div");
 								block.className = "block";
@@ -138,7 +129,7 @@
 				}
 
 				renderBox();
-				renderBlocks();
+				makeMatrixAndRenderBlocks();
 			}
 
 			function makeBoardResponsive() {
@@ -166,7 +157,6 @@
 				processPotentiallyMovableBlocks(makeBlocksMovable);
 			}
 
-			makeMatrix();
 			renderBoard();
 			makeBoardResponsive();
 
