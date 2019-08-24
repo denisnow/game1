@@ -106,9 +106,7 @@
 					for (var i = 0; i < 4; i++) {
 						matrix[i] = [];
 						for (var j = 0; j < 4; j++) {
-							matrix[i][j] = {};
-							matrix[i][j].value = arr[arrIndex++];
-							if (matrix[i][j].value) {
+							if (arr[arrIndex]) {
 								block = document.createElement("div");
 								block.className = "block";
 								block.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
@@ -116,15 +114,16 @@
 								block.n=j;
 								blockNumber = document.createElement("div");
 								blockNumber.className = "blockNumber text";
-								blockNumber.textContent = (matrix[i][j].value);
+								blockNumber.textContent = arr[arrIndex++];
 								block.appendChild(blockNumber);
 								box.appendChild(block);
-								matrix[i][j].element = block;
+								matrix[i][j] = block;
 							}
 							else {
 								voidC = {};
 								voidC.m = i;
 								voidC.n = j;
+								arrIndex++;
 							}
 						}
 					}
@@ -139,14 +138,14 @@
 				function processPotentiallyMovableBlocks(callback) {
 
 					for (var i = 0; i < 4; i++) {
-						if (i !== voidC.n) callback(matrix[voidC.m][i].element);
-						if (i !== voidC.m) callback(matrix[i][voidC.n].element);
+						if (i !== voidC.n) callback(matrix[voidC.m][i]);
+						if (i !== voidC.m) callback(matrix[i][voidC.n]);
 					}
 				}
 
 				function onButtonClick (e) {
 
-					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
+					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) console.log(e.target.textContent);
 
 				}
 
