@@ -9,7 +9,7 @@
 
 		<style>
 
-
+			@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 
 			body {
 				background-image: url('./img/bg.gif');
@@ -143,16 +143,101 @@
 					}
 				}
 
-				function onButtonClick (e) {
+				function onButtonClick(e) {
 
-					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) console.log(e.target.textContent);
-
+					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
+						processPotentiallyMovableBlocks(makeBlocksStatic);
+						moveBlocks (e.target.parentNode);
+					}
 				}
 
-				function makeBlocksMovable (element) {
+				function makeBlocksMovable(element) {
 
 					element.className += " clickable";
 					box.addEventListener("click", onButtonClick);
+				}
+
+				function makeBlocksStatic(element) {
+
+					element.className = element.className.replace(" clickable", "");
+					box.removeEventListener("click", onButtonClick);
+				}
+
+				function moveBlocks(element) {
+
+					var intervalID, move, blocksAmount;
+					var pxCount = 1;
+
+					function moveToTheRight() {
+						
+						for (var i = voidC.n-1; i >= voidC.n-blocksAmount; i--) {
+							matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+pxCount) + "px; top: " + 100*voidC.m + "px;");
+							if (pxCount === 100) {
+								matrix[voidC.m][i].n++;
+								matrix[voidC.m][i+1] = matrix[voidC.m][i];
+							}
+						}
+						if (pxCount === 100) voidC.n -= blocksAmount;
+					}
+
+					function moveToTheLeft() {
+
+						for (var i = voidC.n+1; i <= element.n; i++) {
+							matrix[voidC.m][i].setAttribute("style", "left: " + (100*i-pxCount) + "px; top: " + 100*voidC.m + "px;");
+							if (pxCount === 100) {
+								matrix[voidC.m][i].n--;
+								matrix[voidC.m][i-1] = matrix[voidC.m][i];
+							}
+						}
+						if (pxCount === 100) voidC.n += blocksAmount;
+					}
+
+					function moveUp() {
+
+						for (var i = voidC.m+1; i <= element.m; i++) {
+							matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i-pxCount) + "px;");
+							if (pxCount === 100) {
+								matrix[i][voidC.n].m--;
+								matrix[i-1][voidC.n] = matrix[i][voidC.n];
+							}
+						}
+						if (pxCount === 100) voidC.m += blocksAmount;
+					}
+
+					function moveDown() {
+
+						for (var i = voidC.m-1; i >= element.m; i--) {
+							matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+pxCount) + "px;");
+							if (pxCount === 100) {
+								matrix[i][voidC.n].m++;
+								matrix[i+1][voidC.n] = matrix[i][voidC.n];
+							}
+						}
+						if (pxCount === 100) voidC.m -= blocksAmount;
+					}
+
+					function checkDirectionToMove() {
+
+						if (element.m !== voidC.m) {
+							if (element.m > voidC.m) move = moveUp;
+							else move = moveDown;
+						}
+						else {
+							if (element.n < voidC.n) move = moveToTheRight;
+							else move = moveToTheLeft;
+						}
+					}
+
+					blocksAmount = Math.abs(element.m - voidC.m || element.n - voidC.n);
+					checkDirectionToMove();
+					intervalID = setInterval(function() {
+						move();
+						pxCount += 3;
+						if (pxCount === 103) {
+							clearInterval(intervalID);
+							processPotentiallyMovableBlocks(makeBlocksMovable);
+						}
+					}, 1);
 				}
 
 				processPotentiallyMovableBlocks(makeBlocksMovable);
