@@ -62,8 +62,9 @@
 
 		<script>
 
-			var matrix, box;
-			var empty = {}; //void
+			var matrix,	// 2D array with block elements
+				box,	// box element
+				voidC;	// void coordinates
 
 			function renderBoard() {
 
@@ -121,8 +122,9 @@
 								matrix[i][j].element = block;
 							}
 							else {
-								empty.m = i;
-								empty.n = j;
+								voidC = {};
+								voidC.m = i;
+								voidC.n = j;
 							}
 						}
 					}
@@ -137,14 +139,14 @@
 				function processPotentiallyMovableBlocks(callback) {
 
 					for (var i = 0; i < 4; i++) {
-						if (i !== empty.n) callback(matrix[empty.m][i].element);
-						if (i !== empty.m) callback(matrix[i][empty.n].element);
+						if (i !== voidC.n) callback(matrix[voidC.m][i].element);
+						if (i !== voidC.m) callback(matrix[i][voidC.n].element);
 					}
 				}
 
 				function onButtonClick (e) {
 
-					if (e.target.parentNode.m === empty.m || e.target.parentNode.n === empty.n) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
+					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
 
 				}
 
