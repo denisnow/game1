@@ -157,9 +157,8 @@
 
 				function onButtonClick (e) {
 
- 					var classArr = e.target.parentNode.className.split(" ");
+					if (e.target.parentNode.m === empty.m || e.target.parentNode.n === empty.n) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
 
-					if (classArr.indexOf("clickable") !== -1) console.log(matrix[e.target.parentNode.m][e.target.parentNode.n].value);
 				}
 
 				function makeBlocksMovable (element) {
@@ -168,7 +167,7 @@
 					box.addEventListener("click", onButtonClick);
 				}
 
-				processPotentiallyMovableBlocks(makeBlocksMovable)
+				processPotentiallyMovableBlocks(makeBlocksMovable);
 			}
 
 			makeMatrix();
