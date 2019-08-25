@@ -232,12 +232,12 @@
 					checkDirectionToMove();
 					intervalID = setInterval(function() {
 						move();
-						pxCount += 3;
-						if (pxCount === 103) {
+						pxCount += 9;
+						if (pxCount === 109) {
 							clearInterval(intervalID);
 							processPotentiallyMovableBlocks(makeBlocksMovable);
 						}
-					}, 1);
+					}, 3);
 				}
 
 				processPotentiallyMovableBlocks(makeBlocksMovable);
