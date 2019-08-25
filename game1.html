@@ -248,12 +248,9 @@
 						if (pxCount === 100) voidC.m -= amountOfBlocks*vd;
 					}
 
+					/*
 					function checkDirectionToMove() {
 
-						if (element.m !== voidC.m) move = verticalMove;
-						else move = horizontalMove;
-
-						/*
 						if (element.m !== voidC.m) {
 							if (element.m > voidC.m) move = moveUp;
 							else move = moveDown;
@@ -262,11 +259,18 @@
 							if (element.n < voidC.n) move = moveToTheRight;
 							else move = moveToTheLeft;
 						}
-						*/
+					}
+					*/
+
+					function checkMovingAxis() {
+
+						if (element.m !== voidC.m) move = verticalMove;
+						else move = horizontalMove;
+
 					}
 
 					amountOfBlocks = Math.abs(element.m-voidC.m || element.n-voidC.n);
-					checkDirectionToMove();
+					checkMovingAxis();
 					intervalID = setInterval(function() {
 						move();
 						pxCount += 9;
