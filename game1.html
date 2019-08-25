@@ -170,7 +170,7 @@
 
 					function moveToTheRight() {
 						
-						for (var i = voidC.n-1; i >= voidC.n-amountOfBlocks; i--) {
+						for (var i = voidC.n-1; i >= element.n; i--) {
 							matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+pxCount) + "px; top: " + 100*voidC.m + "px;");
 							if (pxCount === 100) {
 								matrix[voidC.m][i].n++;
@@ -228,7 +228,7 @@
 						}
 					}
 
-					amountOfBlocks = Math.abs(element.m - voidC.m || element.n - voidC.n);
+					amountOfBlocks = Math.abs(element.m-voidC.m || element.n-voidC.n);
 					checkDirectionToMove();
 					intervalID = setInterval(function() {
 						move();
