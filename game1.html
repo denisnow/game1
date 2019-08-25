@@ -159,7 +159,7 @@
 
 				function makeBlocksStatic(element) {
 
-					element.className = element.className.replace(" clickable", "");
+					element.className = "block";
 					box.removeEventListener("click", onButtonClick);
 				}
 
@@ -266,7 +266,6 @@
 
 						if (element.m !== voidC.m) move = verticalMove;
 						else move = horizontalMove;
-
 					}
 
 					amountOfBlocks = Math.abs(element.m-voidC.m || element.n-voidC.n);
