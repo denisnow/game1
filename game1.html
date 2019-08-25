@@ -168,6 +168,7 @@
 					var intervalID, move, amountOfBlocks;
 					var pxCount = 1;
 
+					/*
 					function moveToTheRight() {
 						
 						for (var i = voidC.n-1; i >= element.n; i--) {
@@ -191,7 +192,23 @@
 						}
 						if (pxCount === 100) voidC.n += amountOfBlocks;
 					}
+					*/
 
+					function horizontalMove() {
+
+						var direction = (voidC.n-element.n)/amountOfBlocks;
+
+						for (var i = voidC.n-direction; i*direction >= element.n*direction; i -= direction) {
+							matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+pxCount*direction) + "px; top: " + 100*voidC.m + "px;");
+							if (pxCount === 100) {
+								matrix[voidC.m][i].n += direction;
+								matrix[voidC.m][i+direction] = matrix[voidC.m][i];
+							}
+						}
+						if (pxCount === 100) voidC.n -= amountOfBlocks*direction;
+					}
+
+					/*
 					function moveUp() {
 
 						for (var i = voidC.m+1; i <= element.m; i++) {
@@ -202,9 +219,9 @@
 							}
 						}
 						if (pxCount === 100) voidC.m += amountOfBlocks;
-					}
+						}
 
-					function moveDown() {
+						function moveDown() {
 
 						for (var i = voidC.m-1; i >= element.m; i--) {
 							matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+pxCount) + "px;");
@@ -215,9 +232,28 @@
 						}
 						if (pxCount === 100) voidC.m -= amountOfBlocks;
 					}
+					*/
+
+					function verticalMove() {
+
+						var direction = (voidC.m-element.m)/amountOfBlocks;
+
+						for (var i = voidC.m-direction; i*direction >= element.m*direction; i -= direction) {
+							matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+pxCount*direction) + "px;");
+							if (pxCount === 100) {
+								matrix[i][voidC.n].m += direction;
+								matrix[i+direction][voidC.n] = matrix[i][voidC.n];
+							}
+						}
+						if (pxCount === 100) voidC.m -= amountOfBlocks*direction;
+					}
 
 					function checkDirectionToMove() {
 
+						if (element.m !== voidC.m) move = verticalMove;
+						else move = horizontalMove;
+
+						/*
 						if (element.m !== voidC.m) {
 							if (element.m > voidC.m) move = moveUp;
 							else move = moveDown;
@@ -226,6 +262,7 @@
 							if (element.n < voidC.n) move = moveToTheRight;
 							else move = moveToTheLeft;
 						}
+						*/
 					}
 
 					amountOfBlocks = Math.abs(element.m-voidC.m || element.n-voidC.n);
