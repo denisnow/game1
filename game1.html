@@ -196,16 +196,16 @@
 
 					function horizontalMove() {
 
-						var direction = (voidC.n-element.n)/amountOfBlocks;
+						var vd = (voidC.n-element.n)/amountOfBlocks; //vector direction
 
-						for (var i = voidC.n-direction; i*direction >= element.n*direction; i -= direction) {
-							matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+pxCount*direction) + "px; top: " + 100*voidC.m + "px;");
+						for (var i = voidC.n-vd; i*vd >= element.n*vd; i -= vd) {
+							matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+pxCount*vd) + "px; top: " + 100*voidC.m + "px;");
 							if (pxCount === 100) {
-								matrix[voidC.m][i].n += direction;
-								matrix[voidC.m][i+direction] = matrix[voidC.m][i];
+								matrix[voidC.m][i].n += vd;
+								matrix[voidC.m][i+vd] = matrix[voidC.m][i];
 							}
 						}
-						if (pxCount === 100) voidC.n -= amountOfBlocks*direction;
+						if (pxCount === 100) voidC.n -= amountOfBlocks*vd;
 					}
 
 					/*
@@ -236,16 +236,16 @@
 
 					function verticalMove() {
 
-						var direction = (voidC.m-element.m)/amountOfBlocks;
+						var vd = (voidC.m-element.m)/amountOfBlocks; //vector direction
 
-						for (var i = voidC.m-direction; i*direction >= element.m*direction; i -= direction) {
-							matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+pxCount*direction) + "px;");
+						for (var i = voidC.m-vd; i*vd >= element.m*vd; i -= vd) {
+							matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+pxCount*vd) + "px;");
 							if (pxCount === 100) {
-								matrix[i][voidC.n].m += direction;
-								matrix[i+direction][voidC.n] = matrix[i][voidC.n];
+								matrix[i][voidC.n].m += vd;
+								matrix[i+vd][voidC.n] = matrix[i][voidC.n];
 							}
 						}
-						if (pxCount === 100) voidC.m -= amountOfBlocks*direction;
+						if (pxCount === 100) voidC.m -= amountOfBlocks*vd;
 					}
 
 					function checkDirectionToMove() {
