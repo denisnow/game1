@@ -138,7 +138,7 @@
 					}
 				}
 
-				matrix.onButtonClick = function(e) {
+				matrix.onBlockClick = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
 						matrix.makeBlocksStatic();
@@ -160,12 +160,12 @@
 				matrix.makeBlocksResponsive = function() {
 
 					matrix.processPotentiallyMovableBlocks(matrix.enablePointer);
-					board.addEventListener("click", matrix.onButtonClick);
+					board.addEventListener("click", matrix.onBlockClick);
 				}
 
 				matrix.makeBlocksStatic = function() {
 
-					board.removeEventListener("click", matrix.onButtonClick);
+					board.removeEventListener("click", matrix.onBlockClick);
 					matrix.processPotentiallyMovableBlocks(matrix.disablePointer);
 				}
 
