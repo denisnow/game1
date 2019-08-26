@@ -15,7 +15,7 @@
 				background-image: url('./img/bg.gif');
 			}
 
-			.box {
+			.board {
 				position: absolute;
  				width: 396px;
 				left: 50%;
@@ -63,17 +63,10 @@
 		<script>
 
 			var matrix,	// 2D array with block elements
-				box,	// box element
+				board,	// board element
 				voidC;	// void coordinates
 
 			function renderBoard() {
-
-				function renderBox() {
-
-					box = document.createElement("div");
-					box.className = "box";
-					document.body.appendChild(box);
-				}
 
 				function makeMatrixAndRenderBlocks() {
 
@@ -116,7 +109,7 @@
 								blockNumber.className = "blockNumber text";
 								blockNumber.textContent = arr[arrIndex++];
 								block.appendChild(blockNumber);
-								box.appendChild(block);
+								board.appendChild(block);
 								matrix[i][j] = block;
 							}
 							else {
@@ -129,7 +122,9 @@
 					}
 				}
 
-				renderBox();
+				board = document.createElement("div");
+				board.className = "board";
+				document.body.appendChild(board);
 				makeMatrixAndRenderBlocks();
 			}
 
@@ -165,12 +160,12 @@
 				matrix.makeBlocksResponsive = function() {
 
 					matrix.processPotentiallyMovableBlocks(matrix.enablePointer);
-					box.addEventListener("click", matrix.onButtonClick);
+					board.addEventListener("click", matrix.onButtonClick);
 				}
 
 				matrix.makeBlocksStatic = function() {
 
-					box.removeEventListener("click", matrix.onButtonClick);
+					board.removeEventListener("click", matrix.onButtonClick);
 					matrix.processPotentiallyMovableBlocks(matrix.disablePointer);
 				}
 
