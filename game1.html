@@ -107,7 +107,7 @@
 								block.n=j;
 								blockNumber = document.createElement("div");
 								blockNumber.className = "blockNumber text";
-								blockNumber.textContent = arr[arrIndex++];
+								blockNumber.textContent = arr[arrIndex];
 								block.appendChild(blockNumber);
 								board.appendChild(block);
 								matrix[i][j] = block;
@@ -116,8 +116,8 @@
 								voidC = {};
 								voidC.m = i;
 								voidC.n = j;
-								arrIndex++;
 							}
+							arrIndex++;
 						}
 					}
 				}
