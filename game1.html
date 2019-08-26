@@ -146,26 +146,36 @@
 				matrix.onButtonClick = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						matrix.processPotentiallyMovableBlocks(matrix.makeBlocksStatic);
+						matrix.makeBlocksStatic();
 						matrix.moveBlocks(e.target.parentNode);
 					}
 				}
 
-				matrix.makeBlocksMovable = function(element) {
+				matrix.enablePointer = function(element) {
 
 					element.className += " clickable";
+				}
+
+				matrix.disablePointer = function(element) {
+
+					element.className = "block";
+				}
+
+				matrix.makeBlocksResponsive = function() {
+
+					matrix.processPotentiallyMovableBlocks(matrix.enablePointer);
 					box.addEventListener("click", matrix.onButtonClick);
 				}
 
-				matrix.makeBlocksStatic = function(element) {
+				matrix.makeBlocksStatic = function() {
 
-					element.className = "block";
 					box.removeEventListener("click", matrix.onButtonClick);
+					matrix.processPotentiallyMovableBlocks(matrix.disablePointer);
 				}
 
 				matrix.moveBlocks = function(element) {
 
-					matrix.pxCount = 1;
+					matrix.pxCount = 0;
 
 					/*
 					function moveToTheRight() {
@@ -271,15 +281,15 @@
 					matrix.checkMovingAxis();
 					matrix.intervalID = setInterval(function() {
 						matrix.move();
-						matrix.pxCount += 9;
-						if (matrix.pxCount === 109) {
+						matrix.pxCount += 10;
+						if (matrix.pxCount === 110) {
 							clearInterval(matrix.intervalID);
-							matrix.processPotentiallyMovableBlocks(matrix.makeBlocksMovable);
+							matrix.makeBlocksResponsive();
 						}
 					}, 3);
 				}
 
-				matrix.processPotentiallyMovableBlocks(matrix.makeBlocksMovable);
+				matrix.makeBlocksResponsive();
 			}
 
 			renderBoard();
