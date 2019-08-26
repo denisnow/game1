@@ -130,7 +130,7 @@
 
 			function makeBoardResponsive() {
 
-				matrix.processPotentiallyMovableBlocks = function(callback) {
+				board.processPotentiallyMovableBlocks = function(callback) {
 
 					for (var i = 0; i < 4; i++) {
 						if (i !== voidC.n) callback(matrix[voidC.m][i]);
@@ -138,35 +138,35 @@
 					}
 				}
 
-				matrix.onBlockClick = function(e) {
+				board.onBlockClick = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						matrix.makeBlocksStatic();
-						matrix.targetElement = e.target.parentNode;
-						matrix.moveBlocks();
+						board.makeBlocksStatic();
+						board.targetElement = e.target.parentNode;
+						board.moveBlocks();
 					}
 				}
 
-				matrix.enablePointer = function(element) {
+				board.enablePointer = function(element) {
 
 					element.className += " clickable";
 				}
 
-				matrix.disablePointer = function(element) {
+				board.disablePointer = function(element) {
 
 					element.className = "block";
 				}
 
-				matrix.makeBlocksResponsive = function() {
+				board.makeBlocksResponsive = function() {
 
-					matrix.processPotentiallyMovableBlocks(matrix.enablePointer);
-					board.addEventListener("click", matrix.onBlockClick);
+					board.processPotentiallyMovableBlocks(board.enablePointer);
+					board.addEventListener("click", board.onBlockClick);
 				}
 
-				matrix.makeBlocksStatic = function() {
+				board.makeBlocksStatic = function() {
 
-					board.removeEventListener("click", matrix.onBlockClick);
-					matrix.processPotentiallyMovableBlocks(matrix.disablePointer);
+					board.removeEventListener("click", board.onBlockClick);
+					board.processPotentiallyMovableBlocks(board.disablePointer);
 				}
 
 				/*
@@ -195,18 +195,18 @@
 				}
 				*/
 
-				matrix.verticalMove = function() {
+				board.verticalMove = function() {
 
-					matrix.vd = (voidC.m-matrix.targetElement.m)/matrix.amountOfBlocks; //vector direction
+					board.vd = (voidC.m-board.targetElement.m)/board.amountOfBlocks; //vector direction
 
-					for (var i = voidC.m-matrix.vd; i*matrix.vd >= matrix.targetElement.m*matrix.vd; i -= matrix.vd) {
-						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+matrix.pxCount*matrix.vd) + "px;");
-						if (matrix.pxCount === 100) {
-							matrix[i][voidC.n].m += matrix.vd;
-							matrix[i+matrix.vd][voidC.n] = matrix[i][voidC.n];
+					for (var i = voidC.m-board.vd; i*board.vd >= board.targetElement.m*board.vd; i -= board.vd) {
+						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.pxCount*board.vd) + "px;");
+						if (board.pxCount === 100) {
+							matrix[i][voidC.n].m += board.vd;
+							matrix[i+board.vd][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (matrix.pxCount === 100) voidC.m -= matrix.amountOfBlocks*matrix.vd;
+					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks*board.vd;
 				}
 
 				/*
@@ -235,18 +235,18 @@
 				}
 				*/
 
-				matrix.horizontalMove = function() {
+				board.horizontalMove = function() {
 
-					matrix.vd = (voidC.n-matrix.targetElement.n)/matrix.amountOfBlocks; //vector direction
+					board.vd = (voidC.n-board.targetElement.n)/board.amountOfBlocks; //vector direction
 
-					for (var i = voidC.n-matrix.vd; i*matrix.vd >= matrix.targetElement.n*matrix.vd; i -= matrix.vd) {
-						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+matrix.pxCount*matrix.vd) + "px; top: " + 100*voidC.m + "px;");
-						if (matrix.pxCount === 100) {
-							matrix[voidC.m][i].n += matrix.vd;
-							matrix[voidC.m][i+matrix.vd] = matrix[voidC.m][i];
+					for (var i = voidC.n-board.vd; i*board.vd >= board.targetElement.n*board.vd; i -= board.vd) {
+						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.pxCount*board.vd) + "px; top: " + 100*voidC.m + "px;");
+						if (board.pxCount === 100) {
+							matrix[voidC.m][i].n += board.vd;
+							matrix[voidC.m][i+board.vd] = matrix[voidC.m][i];
 						}
 					}
-					if (matrix.pxCount === 100) voidC.n -= matrix.amountOfBlocks*matrix.vd;
+					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks*board.vd;
 				}
 
 				/*
@@ -263,28 +263,28 @@
 				}
 				*/
 
-				matrix.checkMovingAxis = function() {
+				board.checkMovingAxis = function() {
 
-					if (matrix.targetElement.m !== voidC.m) matrix.move = matrix.verticalMove;
-					else matrix.move = matrix.horizontalMove;
+					if (board.targetElement.m !== voidC.m) board.moveBlocksPartially = board.verticalMove;
+					else board.moveBlocksPartially = board.horizontalMove;
 				}
 
-				matrix.moveBlocks = function() {
+				board.moveBlocks = function() {
 
-					matrix.pxCount = 0;
-					matrix.amountOfBlocks = Math.abs(matrix.targetElement.m-voidC.m || matrix.targetElement.n-voidC.n);
-					matrix.checkMovingAxis();
-					matrix.intervalID = setInterval(function() {
-						matrix.move();
-						matrix.pxCount += 10;
-						if (matrix.pxCount === 110) {
-							clearInterval(matrix.intervalID);
-							matrix.makeBlocksResponsive();
+					board.pxCount = 0;
+					board.amountOfBlocks = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
+					board.checkMovingAxis();
+					board.intervalID = setInterval(function() {
+						board.moveBlocksPartially();
+						board.pxCount += 10;
+						if (board.pxCount === 110) {
+							clearInterval(board.intervalID);
+							board.makeBlocksResponsive();
 						}
 					}, 3);
 				}
 
-				matrix.makeBlocksResponsive();
+				board.makeBlocksResponsive();
 			}
 
 			renderBoard();
