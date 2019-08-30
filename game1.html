@@ -267,6 +267,25 @@
 					else board.moveBlocksPartially = board.horizontalMove;
 				}
 
+				board.checkIsSorted = function() {
+
+					board.temp = 0;
+					for (var i = 3; i >= 0; i--) {
+						for (var j = 3; j >= 0; j--) {
+							if (matrix[i][j]) {
+								if (board.temp) {
+									if (i === 0 && j === 0) {
+										board.isSorted = true;
+										board.removeEventListener("mouseout", board.mouseOutHandler);
+									}
+									if (Number(matrix[i][j].firstChild.textContent) !== board.temp-1) return;
+								}
+								board.temp = matrix[i][j].firstChild.textContent;
+							}
+						}
+					}
+				}
+
 				board.moveBlocks = function() {
 
 					board.pxCount = 0;
@@ -276,8 +295,10 @@
 						board.moveBlocksPartially();
 						board.pxCount += 10;
 						if (board.pxCount === 110) {
+							matrix[voidC.m][voidC.n] = 0;
 							clearInterval(board.intervalID);
-							board.makeBlocksResponsive();
+							board.checkIsSorted();
+							if (!board.isSorted) board.makeBlocksResponsive();
 						}
 					}, 3);
 				}
