@@ -285,6 +285,7 @@
 									if (i === 0 && j === 0) {
 										board.isSorted = true;
 										board.removeEventListener("mouseout", board.mouseOutHandler);
+										return;
 									}
 									if (Number(matrix[i][j].firstChild.textContent) !== board.temp-1) return;
 								}
