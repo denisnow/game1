@@ -103,7 +103,7 @@
 									continue;
 								}
 								for (var j = i+1; j < 16; j++) {
-									if (arr[j] < arr[i] && arr[j] !== 0) inversionsCount++;
+									if (arr[i] > arr[j] && arr[j] !== 0) inversionsCount++;
 								}
 							}
 							if (!(inversionsCount%2)) for (j = 0; j < 9; j++) if (nullIndex === [4,5,6,7,12,13,14,15][j]) isSolvable = true;
@@ -157,14 +157,14 @@
 					}
 				}
 
-				board.mouseOverHandler =  function(e) {
+				board.mouseOverHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
 						e.target.parentNode.className += " clickable";
 					}
 				}
 
-				board.mouseOutHandler =  function(e) {
+				board.mouseOutHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
 						e.target.parentNode.className = "block";
@@ -224,7 +224,7 @@
 				*/				
 				
 				board.moveToTheRight = function() {
-					
+
 					for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
 						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.pxCount) + "px; top: " + 100*voidC.m + "px;");
 						if (board.pxCount === 100) {
