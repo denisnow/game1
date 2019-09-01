@@ -96,10 +96,25 @@
 						for (var i = 0; i < 16; i++) arr.push(i);
 						while (!isSolvable) {
 							shuffleArray();
-							for (temp = i = 0; i < 14; i++) {
-								for (var j = i+1; j < 15; j++) if (arr[j] < arr[i]) temp++;
+							for (temp = i = 0; i < 15; i++) {
+								for (var j = i+1; j < 16; j++) {
+									if (arr[j] < arr[i] && arr[j] !== 0) temp++;
+								}
 							}
-							if (temp%2) isSolvable = true;
+							if (!(temp%2)) {
+								for (i = 0; i < 15; i++) {
+									if (arr[i] === 0) {
+										for (j = 0; j < 9; j++) if (i === [4,5,6,7,12,13,14,15][j]) isSolvable = true;
+									}
+								} 
+							}
+							if (temp%2) {
+								for (i = 0; i < 15; i++) {
+									if (arr[i] === 0) {
+										for (j = 0; j < 9; j++) if (i === [0,1,2,3,8,9,10,11][j]) isSolvable = true;
+									}
+								} 
+							}
 						}
 					}
 
