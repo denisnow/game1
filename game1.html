@@ -167,32 +167,31 @@
 					board.removeEventListener("mouseover", board.mouseOverHandler);
 				}
 
-				/*
-				function moveUp() {
+				board.moveUp = function() {
 
-					for (var i = voidC.m+1; i <= element.m; i++) {
-						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i-pxCount) + "px;");
-						if (pxCount === 100) {
+					for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
+						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i-board.pxCount) + "px;");
+						if (board.pxCount === 100) {
 							matrix[i][voidC.n].m--;
 							matrix[i-1][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (pxCount === 100) voidC.m += amountOfBlocks;
+					if (board.pxCount === 100) voidC.m += board.amountOfBlocks;
 					}
 
-				function moveDown() {
+				board.moveDown = function() {
 
-					for (var i = voidC.m-1; i >= element.m; i--) {
-						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+pxCount) + "px;");
-						if (pxCount === 100) {
+					for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
+						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.pxCount) + "px;");
+						if (board.pxCount === 100) {
 							matrix[i][voidC.n].m++;
 							matrix[i+1][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (pxCount === 100) voidC.m -= amountOfBlocks;
+					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks;
 				}
-				*/
 
+				/*
 				board.verticalMove = function() {
 
 					board.vd = (voidC.m-board.targetElement.m)/board.amountOfBlocks; //vector direction
@@ -206,33 +205,33 @@
 					}
 					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks*board.vd;
 				}
-
-				/*
-				function moveToTheRight() {
+				*/				
+				
+				board.moveToTheRight = function() {
 					
-					for (var i = voidC.n-1; i >= element.n; i--) {
-						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+pxCount) + "px; top: " + 100*voidC.m + "px;");
-						if (pxCount === 100) {
+					for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
+						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.pxCount) + "px; top: " + 100*voidC.m + "px;");
+						if (board.pxCount === 100) {
 							matrix[voidC.m][i].n++;
 							matrix[voidC.m][i+1] = matrix[voidC.m][i];
 						}
 					}
-					if (pxCount === 100) voidC.n -= amountOfBlocks;
+					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks;
 				}
 
-				function moveToTheLeft() {
+				board.moveToTheLeft = function() {
 
-					for (var i = voidC.n+1; i <= element.n; i++) {
-						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i-pxCount) + "px; top: " + 100*voidC.m + "px;");
-						if (pxCount === 100) {
+					for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
+						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i-board.pxCount) + "px; top: " + 100*voidC.m + "px;");
+						if (board.pxCount === 100) {
 							matrix[voidC.m][i].n--;
 							matrix[voidC.m][i-1] = matrix[voidC.m][i];
 						}
 					}
-					if (pxCount === 100) voidC.n += amountOfBlocks;
+					if (board.pxCount === 100) voidC.n += board.amountOfBlocks;
 				}
-				*/
-
+				
+				/*
 				board.horizontalMove = function() {
 
 					board.vd = (voidC.n-board.targetElement.n)/board.amountOfBlocks; //vector direction
@@ -246,26 +245,27 @@
 					}
 					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks*board.vd;
 				}
-
-				/*
-				function checkDirectionToMove() {
-
-					if (element.m !== voidC.m) {
-						if (element.m > voidC.m) move = moveUp;
-						else move = moveDown;
-					}
-					else {
-						if (element.n < voidC.n) move = moveToTheRight;
-						else move = moveToTheLeft;
-					}
-				}
 				*/
 
+				board.checkMovingDirection = function() {
+
+					if (board.targetElement.m !== voidC.m) {
+						if (board.targetElement.m > voidC.m) board.moveBlocksPartially = board.moveUp;
+						else board.moveBlocksPartially = board.moveDown;
+					}
+					else {
+						if (board.targetElement.n < voidC.n) board.moveBlocksPartially = board.moveToTheRight;
+						else board.moveBlocksPartially = board.moveToTheLeft;
+					}
+				}
+
+				/*
 				board.checkMovingAxis = function() {
 
 					if (board.targetElement.m !== voidC.m) board.moveBlocksPartially = board.verticalMove;
 					else board.moveBlocksPartially = board.horizontalMove;
 				}
+				*/
 
 				board.checkIsSorted = function() {
 
@@ -290,7 +290,7 @@
 
 					board.pxCount = 0;
 					board.amountOfBlocks = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
-					board.checkMovingAxis();
+					board.checkMovingDirection();
 					board.intervalID = setInterval(function() {
 						board.moveBlocksPartially();
 						board.pxCount += 10;
