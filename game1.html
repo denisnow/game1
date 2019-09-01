@@ -35,8 +35,11 @@
 				vertical-align: middle;
 				height: 96px;
  				width: 96px;
-				-moz-user-select: none;
 				user-select: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
 			}
 
 			.text {
@@ -109,8 +112,11 @@
 									if (arr[i] > arr[j] && arr[j] !== 0) inversionsCount++;
 								}
 							}
-							if (!(inversionsCount%2)) for (j = 0; j < 9; j++) if (nullIndex === [4,5,6,7,12,13,14,15][j]) isSolvable = true;
-							if (inversionsCount%2) for (j = 0; j < 9; j++) if (nullIndex === [0,1,2,3,8,9,10,11][j]) isSolvable = true;
+							if (
+									(!(inversionsCount%2) && ((nullIndex > 3 && nullIndex < 8) || (nullIndex > 11 && nullIndex < 16)))
+									||
+									((inversionsCount%2) && ((nullIndex > -1 && nullIndex < 4) || (nullIndex > 7 && nullIndex < 12)))
+								) isSolvable = true;
 						}
 					}
 
