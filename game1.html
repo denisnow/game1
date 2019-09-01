@@ -35,6 +35,8 @@
 				vertical-align: middle;
 				height: 96px;
  				width: 96px;
+				-moz-user-select: none;
+				user-select: none;
 			}
 
 			.text {
@@ -63,7 +65,7 @@
 
 		<script>
 
-			var matrix,	// 2D array with block elements
+			var matrix,	// 2D array containing block elements
 				board,	// board element
 				voidC;	// void coordinates
 
@@ -156,33 +158,33 @@
 						board.targetElement = e.target.parentNode;
 						board.moveBlocks();
 					}
-				}
+				};
 
 				board.mouseOverHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
 						e.target.parentNode.className += " clickable";
 					}
-				}
+				};
 
 				board.mouseOutHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
 						e.target.parentNode.className = "block";
 					}
-				}
+				};
 
 				board.makeBlocksResponsive = function() {
 
 					board.addEventListener("click", board.clickHandler);
 					board.addEventListener("mouseover", board.mouseOverHandler);
-				}
+				};
 
 				board.makeBlocksStatic = function() {
 
 					board.removeEventListener("click", board.clickHandler);
 					board.removeEventListener("mouseover", board.mouseOverHandler);
-				}
+				};
 
 				board.moveUp = function() {
 
@@ -194,7 +196,7 @@
 						}
 					}
 					if (board.pxCount === 100) voidC.m += board.amountOfBlocks;
-					}
+				};
 
 				board.moveDown = function() {
 
@@ -206,7 +208,7 @@
 						}
 					}
 					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks;
-				}
+				};
 
 				/*
 				board.verticalMove = function() {
@@ -221,7 +223,7 @@
 						}
 					}
 					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks*board.vd;
-				}
+				};
 				*/				
 				
 				board.moveToTheRight = function() {
@@ -234,7 +236,7 @@
 						}
 					}
 					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks;
-				}
+				};
 
 				board.moveToTheLeft = function() {
 
@@ -246,7 +248,7 @@
 						}
 					}
 					if (board.pxCount === 100) voidC.n += board.amountOfBlocks;
-				}
+				};
 				
 				/*
 				board.horizontalMove = function() {
@@ -261,7 +263,7 @@
 						}
 					}
 					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks*board.vd;
-				}
+				};
 				*/
 
 				board.checkMovingDirection = function() {
@@ -274,14 +276,14 @@
 						if (board.targetElement.n < voidC.n) board.moveBlocksPartially = board.moveToTheRight;
 						else board.moveBlocksPartially = board.moveToTheLeft;
 					}
-				}
+				};
 
 				/*
 				board.checkMovingAxis = function() {
 
 					if (board.targetElement.m !== voidC.m) board.moveBlocksPartially = board.verticalMove;
 					else board.moveBlocksPartially = board.horizontalMove;
-				}
+				};
 				*/
 
 				board.checkIsSorted = function() {
@@ -302,7 +304,7 @@
 							}
 						}
 					}
-				}
+				};
 
 				board.moveBlocks = function() {
 
@@ -319,7 +321,7 @@
 							if (!board.isSorted) board.makeBlocksResponsive();
 						}
 					}, 3);
-				}
+				};
 
 				board.makeBlocksResponsive();
 				board.addEventListener("mouseout", board.mouseOutHandler);
