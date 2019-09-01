@@ -98,7 +98,10 @@
 							shuffleArray();
 							inversionsCount = 0;
 							for (i = 0; i < 15; i++) {
-								if (arr[i] === 0) nullIndex = i;
+								if (arr[i] === 0) {
+									nullIndex = i;
+									continue;
+								}
 								for (var j = i+1; j < 16; j++) {
 									if (arr[j] < arr[i] && arr[j] !== 0) inversionsCount++;
 								}
