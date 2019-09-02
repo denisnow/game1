@@ -46,7 +46,7 @@
 				background-color: white;
 				opacity: 0.77;
 				font-family: "Roboto Mono", monospace;
-				font-size: 28px;
+				font-size: 30px;
 				color: #298f91;
 			}
 
@@ -85,13 +85,13 @@
 
 						function shuffleArray() {
 
-							var random, temp;
+							var randomIndex, temp;
 
 							for (var i = arr.length-1; i > 0; i--) {
-								random = Math.floor(Math.random()*(i+1));
-								if (arr[random] !== arr[i]) {
-									temp = arr[random];
-									arr[random] = arr[i];
+								randomIndex = Math.floor(Math.random()*(i+1));
+								if (arr[randomIndex] !== arr[i]) {
+									temp = arr[randomIndex];
+									arr[randomIndex] = arr[i];
 									arr[i] = temp;
 								}
 							}
@@ -299,7 +299,7 @@
 						for (var j = 3; j >= 0; j--) {
 							if (matrix[i][j]) {
 								if (board.temp) {
-									if ((i === 0 && j === 1) || (i === 0 && j === 0)) {
+									if (i === 0 && j === 0) {
 										board.isSorted = true;
 										board.removeEventListener("mouseout", board.mouseOutHandler);
 										return;
