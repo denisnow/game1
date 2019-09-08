@@ -138,11 +138,7 @@
 								board.appendChild(block);
 								matrix[i][j] = block;
 							}
-							else {
-								voidC = {};
-								voidC.m = i;
-								voidC.n = j;
-							}
+							else voidC = {m: i, n: j};
 							arrIndex++;
 						}
 					}
