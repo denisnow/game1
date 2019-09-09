@@ -319,7 +319,7 @@
 						if (board.pxCount === 110) {
 							clearInterval(board.intervalID);
 							matrix[voidC.m][voidC.n] = 0;
-							board.checkIsSorted();
+							if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
 							if (!board.isSorted) board.makeBlocksResponsive();
 						}
 					}, 3);
