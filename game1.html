@@ -268,7 +268,7 @@
 				};
 				*/
 
-				board.checkMovingDirection = function() {
+				board.setMovingDirection = function() {
 
 					if (board.targetElement.m !== voidC.m) {
 						if (board.targetElement.m > voidC.m) board.moveBlocksPartially = board.moveUp;
@@ -312,7 +312,7 @@
 
 					board.pxCount = 10;
 					board.amountOfBlocks = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
-					board.checkMovingDirection();
+					board.setMovingDirection();
 					board.intervalID = setInterval(function() {
 						board.moveBlocksPartially();
 						board.pxCount += 10;
