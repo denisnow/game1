@@ -21,7 +21,6 @@
 				left: 50%;
 				top: 50%;
 				margin: -200px 0 0 -198px;
-				cursor: default;
 			}
 
 			.block {
@@ -152,40 +151,33 @@
 
 			function makeBoardResponsive() {
 
+				board.processMovableBlocks = function(callback) {
+
+					for (var i = 0; i < 4; i++) {
+						if (i !== voidC.n) callback(matrix[voidC.m][i]);
+						if (i !== voidC.m) callback(matrix[i][voidC.n]);
+					}
+				};
+
 				board.clickHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						e.target.parentNode.className = "block";
-						board.makeBlocksStatic();
+						board.processMovableBlocks(board.makeBlocksStatic);
 						board.targetElement = e.target.parentNode;
 						board.moveBlocks();
 					}
 				};
 
-				board.mouseOverHandler = function(e) {
+				board.makeBlocksResponsive = function(element) {
 
-					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						e.target.parentNode.className += " clickable";
-					}
-				};
-
-				board.mouseOutHandler = function(e) {
-
-					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						e.target.parentNode.className = "block";
-					}
-				};
-
-				board.makeBlocksResponsive = function() {
-
+					element.className += " clickable";
 					board.addEventListener("click", board.clickHandler);
-					board.addEventListener("mouseover", board.mouseOverHandler);
 				};
 
-				board.makeBlocksStatic = function() {
+				board.makeBlocksStatic = function(element) {
 
+					element.className = "block";
 					board.removeEventListener("click", board.clickHandler);
-					board.removeEventListener("mouseover", board.mouseOverHandler);
 				};
 
 				board.moveUp = function() {
@@ -320,13 +312,12 @@
 							clearInterval(board.intervalID);
 							matrix[voidC.m][voidC.n] = 0;
 							if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
-							if (!board.isSorted) board.makeBlocksResponsive();
+							if (!board.isSorted) board.processMovableBlocks(board.makeBlocksResponsive);
 						}
 					}, 3);
 				};
 
-				board.makeBlocksResponsive();
-				board.addEventListener("mouseout", board.mouseOutHandler);
+				board.processMovableBlocks(board.makeBlocksResponsive);
 			}
 
 			renderBoard();
