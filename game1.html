@@ -114,7 +114,7 @@
 							if (
 								(!(inversionCount%2) && ((nullIndex > 3 && nullIndex < 8) || (nullIndex > 11 && nullIndex < 16)))
 								||
-								((inversionCount%2) && ((nullIndex > -1 && nullIndex < 4) || (nullIndex > 7 && nullIndex < 12)))
+								((inversionCount%2) && (nullIndex < 4 || (nullIndex > 7 && nullIndex < 12)))
 							) isSolvable = true;
 						}
 					}
