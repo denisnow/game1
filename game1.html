@@ -162,21 +162,31 @@
 				board.clickHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						board.processMovableBlocks(board.makeBlocksStatic);
+						board.makeBlocksStatic();
 						board.targetElement = e.target.parentNode;
 						board.moveBlocks();
 					}
 				};
 
-				board.makeBlocksResponsive = function(element) {
+				board.makeBlocksResponsive = function() {
 
-					element.className += " clickable";
+					board.addClass = function(element) {
+
+						element.className += " clickable";
+					}
+
+					board.processMovableBlocks(board.addClass);
 					board.addEventListener("click", board.clickHandler);
 				};
 
-				board.makeBlocksStatic = function(element) {
+				board.makeBlocksStatic = function() {
 
-					element.className = "block";
+					board.removeClass = function(element) {
+
+						element.className = "block";
+					}
+
+					board.processMovableBlocks(board.removeClass);
 					board.removeEventListener("click", board.clickHandler);
 				};
 
@@ -289,7 +299,6 @@
 								if (board.temp) {
 									if (i === 1 && j === 1) {
 										board.isSorted = true;
-										board.removeEventListener("mouseout", board.mouseOutHandler);
 										return;
 									}
 									if (Number(matrix[i][j].firstChild.textContent) !== board.temp-1) return;
@@ -312,12 +321,12 @@
 							clearInterval(board.intervalID);
 							matrix[voidC.m][voidC.n] = 0;
 							if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
-							if (!board.isSorted) board.processMovableBlocks(board.makeBlocksResponsive);
+							if (!board.isSorted) board.makeBlocksResponsive();
 						}
 					}, 3);
 				};
 
-				board.processMovableBlocks(board.makeBlocksResponsive);
+				board.makeBlocksResponsive();
 			}
 
 			renderBoard();
