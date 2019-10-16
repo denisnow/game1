@@ -168,25 +168,25 @@
 					}
 				};
 
+				board.addClClass = function(element) {
+
+					element.className += " clickable";
+				}
+
 				board.makeBlocksResponsive = function() {
 
-					board.addClass = function(element) {
-
-						element.className += " clickable";
-					}
-
-					board.processMovableBlocks(board.addClass);
+					board.processMovableBlocks(board.addClClass);
 					board.addEventListener("click", board.clickHandler);
 				};
 
+				board.removeClClass = function(element) {
+
+					element.className = "block";
+				}
+
 				board.makeBlocksStatic = function() {
 
-					board.removeClass = function(element) {
-
-						element.className = "block";
-					}
-
-					board.processMovableBlocks(board.removeClass);
+					board.processMovableBlocks(board.removeClClass);
 					board.removeEventListener("click", board.clickHandler);
 				};
 
