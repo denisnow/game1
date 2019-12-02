@@ -76,8 +76,8 @@
 
 				function makeMatrixAndRenderBlocks() {
 
-					var block, blockNumber, arr;
-					var arrIndex = 0;
+					var arr, block, blockNumber,
+						arrIndex = 0;
 
 					function makeArray() {
 
@@ -99,9 +99,9 @@
 
 						function checkIsSolvable() {
 
-							var inversionCount, nullIndex;
+							var inversionCount = 0, 
+								nullIndex;
 
-							inversionCount = 0;
 							for (i = 0; i < 15; i++) {
 								if (arr[i] === 0) {
 									nullIndex = i;
@@ -159,11 +159,11 @@
 
 			function makeBoardResponsive() {
 
-				board.processMovableBlocks = function(callback) {
+				board.processMovableBlocks = function(classString) {
 
 					for (var i = 0; i < 4; i++) {
-						if (i !== voidC.n) callback(matrix[voidC.m][i]);
-						if (i !== voidC.m) callback(matrix[i][voidC.n]);
+						if (i !== voidC.n) board.setClassName(matrix[voidC.m][i], classString);
+						if (i !== voidC.m) board.setClassName(matrix[i][voidC.n], classString);
 					}
 				};
 
@@ -176,25 +176,20 @@
 					}
 				};
 
-				board.addClClass = function(element) {
+				board.setClassName = function(element, classString) {
 
-					element.className += " clickable";
+					element.className = classString;
 				}
 
 				board.makeBlocksResponsive = function() {
 
-					board.processMovableBlocks(board.addClClass);
+					board.processMovableBlocks("block clickable");
 					board.addEventListener("click", board.clickHandler);
 				};
 
-				board.removeClClass = function(element) {
-
-					element.className = "block";
-				}
-
 				board.makeBlocksStatic = function() {
 
-					board.processMovableBlocks(board.removeClClass);
+					board.processMovableBlocks("block");
 					board.removeEventListener("click", board.clickHandler);
 				};
 
