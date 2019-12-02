@@ -99,8 +99,8 @@
 
 						function checkIsSolvable() {
 
-							var inversionCount = 0, 
-								nullIndex;
+							var nullIndex,
+								inversionCount = 0;
 
 							for (i = 0; i < 15; i++) {
 								if (arr[i] === 0) {
@@ -193,7 +193,7 @@
 					board.removeEventListener("click", board.clickHandler);
 				};
 
-				board.moveUp = function() {
+				board.moveBlocksUp = function() {
 
 					for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
 						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i-board.pxCount) + "px;");
@@ -205,7 +205,7 @@
 					if (board.pxCount === 100) voidC.m += board.amountOfBlocks;
 				};
 
-				board.moveDown = function() {
+				board.moveBlocksDown = function() {
 
 					for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
 						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.pxCount) + "px;");
@@ -233,7 +233,7 @@
 				};
 				*/				
 				
-				board.moveToTheRight = function() {
+				board.moveBlocksToTheRight = function() {
 
 					for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
 						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.pxCount) + "px; top: " + 100*voidC.m + "px;");
@@ -245,7 +245,7 @@
 					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks;
 				};
 
-				board.moveToTheLeft = function() {
+				board.moveBlocksToTheLeft = function() {
 
 					for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
 						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i-board.pxCount) + "px; top: " + 100*voidC.m + "px;");
@@ -273,15 +273,15 @@
 				};
 				*/
 
-				board.setMovingDirection = function() {
+				board.setBlocksMovingDirection = function() {
 
 					if (board.targetElement.m !== voidC.m) {
-						if (board.targetElement.m > voidC.m) board.moveBlocksPartially = board.moveUp;
-						else board.moveBlocksPartially = board.moveDown;
+						if (board.targetElement.m > voidC.m) board.moveBlocksPartially = board.moveBlocksUp;
+						else board.moveBlocksPartially = board.moveBlocksDown;
 					}
 					else {
-						if (board.targetElement.n < voidC.n) board.moveBlocksPartially = board.moveToTheRight;
-						else board.moveBlocksPartially = board.moveToTheLeft;
+						if (board.targetElement.n < voidC.n) board.moveBlocksPartially = board.moveBlocksToTheRight;
+						else board.moveBlocksPartially = board.moveBlocksToTheLeft;
 					}
 				};
 
@@ -316,7 +316,7 @@
 
 					board.pxCount = 10;
 					board.amountOfBlocks = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
-					board.setMovingDirection();
+					board.setBlocksMovingDirection();
 					board.intervalID = setInterval(function() {
 						board.moveBlocksPartially();
 						board.pxCount += 10;
