@@ -102,28 +102,18 @@
 							var nullIndex,
 								inversionCount = 0;
 
-							for (i = 0; i < 15; i++) {
-								if (arr[i] === 0) {
-									nullIndex = i;
-									continue;
+							arr.map(function(value, index) {
+								if (value === 0) nullIndex = index;
+								if (value > 1) for (i = index+1; i < 16; i++) {
+									if (value > arr[i] && arr[i] !== 0) inversionCount++;
 								}
-								if (arr[i] === 1) continue;
-								for (var j = i+1; j < 16; j++) {
-									if (arr[i] > arr[j] && arr[j] !== 0) inversionCount++;
-								}
-							}
+
+							});
 							if (
 								(!(inversionCount%2) && ((nullIndex > 3 && nullIndex < 8) || (nullIndex > 11 && nullIndex < 16)))
 								||
 								((inversionCount%2) && (nullIndex < 4 || (nullIndex > 7 && nullIndex < 12)))
 							) isSolvable = true;
-						}
-
-						arr = [];
-						for (var i = 0; i < 16; i++) arr.push(i);
-						while (!isSolvable) {
-							shuffleArray();
-							checkIsSolvable();
 						}
 					}
 
@@ -179,7 +169,7 @@
 				board.setClassName = function(element, classString) {
 
 					element.className = classString;
-				}
+				};
 
 				board.makeBlocksResponsive = function() {
 
