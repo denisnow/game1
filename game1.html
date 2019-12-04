@@ -115,6 +115,13 @@
 								((inversionCount%2) && (nullIndex < 4 || (nullIndex > 7 && nullIndex < 12)))
 							) isSolvable = true;
 						}
+
+						arr = [];
+						for (var i = 0; i < 16; i++) arr.push(i);
+						while (!isSolvable) {
+							shuffleArray();
+							checkIsSolvable();
+						}
 					}
 
 					makeArray();
