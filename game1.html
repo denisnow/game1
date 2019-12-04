@@ -8,7 +8,6 @@
 		<title>Game 1</title>
 
 		<style>
-
 			@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 
 			body {
@@ -18,7 +17,8 @@
 
 			.board {
 				position: absolute;
- 				width: 396px;
+				width: 400px;
+				height: 400px;
 				left: 50%;
 				top: 50%;
 				margin: -200px 0 0 -198px;
@@ -58,17 +58,16 @@
 				display: inline-block;
 				margin: 10px;
 			}
-
 		</style>
 
 	</head>
 
 	<body>
 
-		<noscript>
-			<p class="text">This page requires JavaScript.</p>
-			<p class="text">Your browser doesn't support JavaScript or JavaScript is disabled.</p>
-			<p class="text">Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
+		<noscript class="text">
+			<p>This page requires JavaScript.</p>
+			<p>Your browser doesn't support JavaScript or JavaScript is disabled.</p>
+			<p>Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
 		</noscript>
 
 		<script>
@@ -137,7 +136,7 @@
 							if (arr[arrIndex]) {
 								block = document.createElement("div");
 								block.className = "block";
-								block.setAttribute("style", "left: " + 100*j + "px; top: " + 100*i + "px;");
+								block.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
 								block.m=i;
 								block.n=j;
 								blockNumber = document.createElement("div");
@@ -198,25 +197,25 @@
 				board.moveBlocksUp = function() {
 
 					for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
-						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i-board.pxCount) + "px;");
-						if (board.pxCount === 100) {
+						matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i-board.percentCount) + "%;");
+						if (board.percentCount === 25) {
 							matrix[i][voidC.n].m--;
 							matrix[i-1][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (board.pxCount === 100) voidC.m += board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.m += board.amountOfBlocks;
 				};
 
 				board.moveBlocksDown = function() {
 
 					for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
-						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.pxCount) + "px;");
-						if (board.pxCount === 100) {
+						matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i+board.percentCount) + "%;");
+						if (board.percentCount === 25) {
 							matrix[i][voidC.n].m++;
 							matrix[i+1][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.m -= board.amountOfBlocks;
 				};
 
 				/*
@@ -225,38 +224,38 @@
 					board.vd = (voidC.m-board.targetElement.m)/board.amountOfBlocks; //vector direction
 
 					for (var i = voidC.m-board.vd; i*board.vd >= board.targetElement.m*board.vd; i -= board.vd) {
-						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.pxCount*board.vd) + "px;");
-						if (board.pxCount === 100) {
+						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.percentCount*board.vd) + "px;");
+						if (board.percentCount === 100) {
 							matrix[i][voidC.n].m += board.vd;
 							matrix[i+board.vd][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (board.pxCount === 100) voidC.m -= board.amountOfBlocks*board.vd;
+					if (board.percentCount === 100) voidC.m -= board.amountOfBlocks*board.vd;
 				};
 				*/				
 				
 				board.moveBlocksToTheRight = function() {
 
 					for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
-						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.pxCount) + "px; top: " + 100*voidC.m + "px;");
-						if (board.pxCount === 100) {
+						matrix[voidC.m][i].setAttribute("style", "left: " + (25*i+board.percentCount) + "%; top: " + 25*voidC.m + "%;");
+						if (board.percentCount === 25) {
 							matrix[voidC.m][i].n++;
 							matrix[voidC.m][i+1] = matrix[voidC.m][i];
 						}
 					}
-					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.n -= board.amountOfBlocks;
 				};
 
 				board.moveBlocksToTheLeft = function() {
 
 					for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
-						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i-board.pxCount) + "px; top: " + 100*voidC.m + "px;");
-						if (board.pxCount === 100) {
+						matrix[voidC.m][i].setAttribute("style", "left: " + (25*i-board.percentCount) + "%; top: " + 25*voidC.m + "%;");
+						if (board.percentCount === 25) {
 							matrix[voidC.m][i].n--;
 							matrix[voidC.m][i-1] = matrix[voidC.m][i];
 						}
 					}
-					if (board.pxCount === 100) voidC.n += board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.n += board.amountOfBlocks;
 				};
 
 				/*
@@ -265,13 +264,13 @@
 					board.vd = (voidC.n-board.targetElement.n)/board.amountOfBlocks; //vector direction
 
 					for (var i = voidC.n-board.vd; i*board.vd >= board.targetElement.n*board.vd; i -= board.vd) {
-						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.pxCount*board.vd) + "px; top: " + 100*voidC.m + "px;");
-						if (board.pxCount === 100) {
+						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.percentCount*board.vd) + "px; top: " + 100*voidC.m + "px;");
+						if (board.percentCount === 100) {
 							matrix[voidC.m][i].n += board.vd;
 							matrix[voidC.m][i+board.vd] = matrix[voidC.m][i];
 						}
 					}
-					if (board.pxCount === 100) voidC.n -= board.amountOfBlocks*board.vd;
+					if (board.percentCount === 100) voidC.n -= board.amountOfBlocks*board.vd;
 				};
 				*/
 
@@ -316,13 +315,13 @@
 
 				board.moveBlocks = function() {
 
-					board.pxCount = 0;
+					board.percentCount = 1;
 					board.amountOfBlocks = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
 					board.setBlocksMovingDirection();
 					board.intervalID = setInterval(function() {
-						board.pxCount += 10;
+						board.percentCount += 2;
 						board.moveBlocksPartially();
-						if (board.pxCount === 100) {
+						if (board.percentCount === 25) {
 							clearInterval(board.intervalID);
 							matrix[voidC.m][voidC.n] = 0;
 							if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
