@@ -6,13 +6,13 @@
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Game 1</title>
+		<title>15-Game</title>
 
 		<style>
 			body {
 				background-image: url('./img/bg.svg');
 				background-color: #87ceeb;
-				background-size: 450px 450px;
+				background-size: 250px 250px;
 				margin: 0;
 			}
 
@@ -59,6 +59,39 @@
 				margin: 10px;
 			}
 
+			.infoBtn:hover {
+				opacity: 1;
+			}
+
+			.infoBtn {
+				cursor: pointer;
+				position: relative;
+				border: 0;
+				padding: 0;
+				float: right;
+				opacity: 0.8;
+				top: -19vw;
+				right: 4vw;
+				width: 15vw;
+				height: 15vw;
+				font-family: "Times New Roman", Times, serif;
+				font-size: 11vw;
+				color: #298f91;
+				background: url('./img/infobtn.svg') no-repeat;
+			}
+
+			.visually-hidden:not(:focus):not(:active) {
+				position: absolute !important;
+				clip: rect(1px 1px 1px 1px);
+				clip: rect(1px, 1px, 1px, 1px);
+				padding:0 !important;
+				border:0 !important;
+				height: 1px !important; 
+				width: 1px !important; 
+				overflow: hidden;
+				white-space: nowrap !important;
+			}
+
 			@media (orientation: landscape) {
 
 				.board {
@@ -76,9 +109,21 @@
 				.text {
 					font-size: 10vh;
 				}
+
+				.infoBtn {
+					right: -25vh;
+					top: 0;
+					width: 16vh;
+					height: 16vh;
+					font-size: 10vh;
+				}
 			}
 
 			@media (min-width: 541px) and (min-height: 541px) {
+
+				body {
+					background-size: 350px 350px;
+				}
 
 				.board {
 					width: 400px;
@@ -95,12 +140,13 @@
 				.text {
 					font-size: 33px;
 				}
-			}
 
-			@media (min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.1), (min--moz-device-pixel-ratio: 1.1) {
-
-				body {
-					background-size: 250px 250px;
+				.infoBtn {
+					right: -76px;
+					top: -80px;
+					width: 70px;
+					height: 70px;
+					font-size: 34px;
 				}
 			}
 		</style>
@@ -114,6 +160,12 @@
 			<p>Your browser doesn't support JavaScript or JavaScript is disabled.</p>
 			<p>Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
 		</noscript>
+
+		<h1 class="visually-hidden">15-game</h1>
+
+		<div class="board">
+			<button class="infoBtn">i</button>
+		</div>
 
 		<script>
 
@@ -197,9 +249,7 @@
 					}
 				}
 
-				board = document.createElement("div");
-				board.className = "board";
-				document.body.appendChild(board);
+				board = document.body.querySelector(".board");
 				makeMatrixAndRenderBlocks();
 			}
 
