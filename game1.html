@@ -80,7 +80,7 @@
 				background: url('./img/infobtn.svg') no-repeat;
 			}
 
-			.visually-hidden:not(:focus):not(:active) {
+			.visuallyHidden:not(:focus):not(:active) {
 				position: absolute !important;
 				clip: rect(1px 1px 1px 1px);
 				clip: rect(1px, 1px, 1px, 1px);
@@ -90,6 +90,10 @@
 				width: 1px !important; 
 				overflow: hidden;
 				white-space: nowrap !important;
+			}
+
+			.hidden {
+				display: none;
 			}
 
 			@media (orientation: landscape) {
@@ -161,17 +165,20 @@
 			<p>Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
 		</noscript>
 
-		<h1 class="visually-hidden">15-game</h1>
+		<h1 class="visuallyHidden">15-game</h1>
 
 		<div class="board">
-			<button class="infoBtn">i</button>
+			<button class="infoBtn hidden">i</button>
 		</div>
+
+		<div class="infoModal hidden">modal</div>
 
 		<script>
 
 			var board,	// board element
 				matrix,	// 2D array containing block elements
-				voidC;	// void coordinates
+				voidC,	// void coordinates
+				infoBtn, infoModal; // information button and information modal elements
 
 			function renderBoard() {
 
@@ -251,6 +258,20 @@
 
 				board = document.body.querySelector(".board");
 				makeMatrixAndRenderBlocks();
+			}
+
+			function displayButton() {
+
+				infoBtn = document.body.querySelector(".infoBtn");
+				infoBtn.className = "infoBtn";
+			}
+
+			function makeButtonResponsive() {
+
+				infoModal = document.body.querySelector(".infoModal");
+				infoBtn.addEventListener("click", function() {
+					infoModal.className = "infoModal";
+				});
 			}
 
 			function makeBoardResponsive() {
@@ -429,6 +450,8 @@
 			}
 
 			renderBoard();
+			displayButton();
+			makeButtonResponsive();
 			makeBoardResponsive();
 
 		</script>
