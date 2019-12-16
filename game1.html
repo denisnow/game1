@@ -14,10 +14,12 @@
 				background-color: #87ceeb;
 				background-size: 250px 250px;
 				margin: 0;
+				color: #298f91;
+				font-family: Times, "Times New Roman", serif;
 			}
 
 			.board {
-				position: absolute;
+				position: fixed;
 				width: 99vw;
 				height: 99vw;
 				top: 50%;
@@ -47,7 +49,6 @@
 				opacity: 0.77;
 				font-family: Helvetica, Arial, sans-serif;
 				font-size: 11vw;
-				color: #298f91;
 			}
 
 			.clickable {
@@ -59,11 +60,7 @@
 				margin: 10px;
 			}
 
-			.infoBtn:hover {
-				opacity: 1;
-			}
-
-			.infoBtn {
+			.openInfoBtn {
 				cursor: pointer;
 				position: relative;
 				border: 0;
@@ -76,8 +73,72 @@
 				height: 15vw;
 				font-family: "Times New Roman", Times, serif;
 				font-size: 11vw;
-				color: #298f91;
 				background: url('./img/infobtn.svg') no-repeat;
+				color: #298f91;
+			}
+
+			.openInfoBtn:hover {
+				opacity: 1;
+			}
+
+			.infoModal {
+				position:absolute;
+				bottom:0;
+				top:0;
+				left:0;
+				right:0;
+				margin-top:1vw;
+				margin-bottom:1vw;
+				margin-right:1vw;
+				margin-left:1vw;
+				background-color: white;
+				opacity: 0.8;
+			}
+
+			.infoTextWrapper {
+				width: 100%;
+				height: 100%;
+				display: table;
+				position: relative;
+				vertical-align: middle;
+				margin: auto 0 auto 0;
+				padding: 2vh;
+				box-sizing: border-box;
+			}
+
+			.infoTextContainer {
+				display: table-cell;
+    			vertical-align: middle;
+				font-size: 4vh;
+			}
+
+			.infoTextContainer > h3 {
+				display: table;
+    			margin: 2.5vh auto;
+			}
+
+			.infoTextContainer > p {
+				display: inline;
+				margin: 0;
+				margin: 0 0 0 4vh;
+			}
+
+			.closeInfoBtn {
+				border: 0;
+				position: absolute;
+				top: 2.2vh;
+				right: 7.3vh;
+				z-index: 2;
+			}
+
+			.closeInfoBtn::before {
+				content:"";
+				position: absolute;
+				background-image: url("img/closebtn2.svg");
+				background-repeat: no-repeat;
+				width: 6vh;
+				height: 6vh;
+				z-index: 1;
 			}
 
 			.visuallyHidden:not(:focus):not(:active) {
@@ -114,12 +175,43 @@
 					font-size: 10vh;
 				}
 
-				.infoBtn {
+				.openInfoBtn {
 					right: -25vh;
 					top: 0;
 					width: 16vh;
 					height: 16vh;
 					font-size: 10vh;
+				}
+
+				.closeInfoBtn {
+					top: 2.2vw;
+					right: 7.3vw;
+				}
+
+				.closeInfoBtn::before {
+					width: 6vw;
+					height: 6vw;
+				}
+
+				.infoModal {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					height: 80vh;
+					width: 96vw;
+					margin: -40vh 0 0 -48vw;
+				}
+
+				.infoTextWrapper {
+					padding: 3vw;
+				}
+
+				.infoTextContainer {
+					font-size: 3.3vw;
+				}
+
+				.infoTextContainer > p {
+					margin: 0 0 0 4vw;
 				}
 			}
 
@@ -142,15 +234,78 @@
 				}
 
 				.text {
-					font-size: 33px;
+					font-size: 39px;
 				}
 
-				.infoBtn {
+				.infoModal {
+					top: 50%;
+					left: 50%;
+					height: 380px;
+					width: 520px;
+					margin: -190px 0 0 -260px;
+					background-color: transparent;
+					opacity: 1;
+				}
+
+				.infoTextWrapper {
+					padding: 0;
+				}
+
+				.infoTextContainer {
+					background-color: white;
+					padding: 25px;
+					opacity: 0.8;
+					font-size: 32px;
+				}
+
+				.infoTextContainer > h3 {
+					display: table;
+					margin: 10px auto;
+				}
+
+				.infoTextContainer > p {
+					margin: 0 0 0 25px;
+					padding: 10px 0 10px;
+				}
+
+				.firstTextEl {
+					padding-top: 0;
+				}
+
+				.lastTextEl {
+					padding-bottom: 0;
+				}
+
+				.openInfoBtn {
 					right: -76px;
 					top: -80px;
 					width: 70px;
 					height: 70px;
 					font-size: 34px;
+				}
+
+				.closeInfoBtn {
+					cursor: pointer;
+					border: 0;
+					padding: 0;
+					float: right;
+					opacity: 0.8;
+					background: url('./img/closebtn.svg') no-repeat;
+					right: -70px;
+					top: -70px;
+					width: 60px;
+					height: 60px;
+				}
+
+				.closeInfoBtn::before {
+					left: 15px;
+					top: 15px;
+					width: 30px;
+					height: 30px;
+				}
+
+				.closeInfoBtn:hover {
+					opacity: 1;
 				}
 			}
 		</style>
@@ -165,20 +320,36 @@
 			<p>Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
 		</noscript>
 
-		<h1 class="visuallyHidden">15-game</h1>
+		<h1 class="visuallyHidden">15-puzzle game</h1>
+
+		<h2 class="visuallyHidden">Game board</h2>
 
 		<div class="board">
-			<button class="infoBtn hidden">i</button>
+			<button class="openInfoBtn hidden"><b>i</b></button>
 		</div>
 
-		<div class="infoModal hidden">modal</div>
+		<h2 class="visuallyHidden">Information about the game</h2>
+
+		<div class="infoModal hidden">
+			<button class="closeInfoBtn"></button>
+			<div class="infoTextWrapper">
+				<div class="infoTextContainer">
+					<h3 class="firstTextEl">Rules</h3>
+					<p>The object of the game is to place the tiles in ascending order.</p>
+					<h3>Hint</h3>
+					<p class="lastTextEl">Sort first two rows, then place '9' and '13' tiles on their destination places, finally sort remaining tiles.</p>
+				</div>
+			</div>
+		</div>
 
 		<script>
 
-			var board,	// board element
-				matrix,	// 2D array containing block elements
-				voidC,	// void coordinates
-				infoBtn, infoModal; // information button and information modal elements
+			var board,	      // board element
+				matrix,	      // 2D array containing block elements
+				voidC,	      // void coordinates
+				openInfoBtn,  // button to open information modal window
+				closeInfoBtn, // button to close information modal window
+				infoModal;    // information modal window element
 
 			function renderBoard() {
 
@@ -260,17 +431,29 @@
 				makeMatrixAndRenderBlocks();
 			}
 
-			function displayButton() {
+			function displayOpenModalBtn() {
 
-				infoBtn = document.body.querySelector(".infoBtn");
-				infoBtn.className = "infoBtn";
+				openInfoBtn = document.body.querySelector(".openInfoBtn");
+				openInfoBtn.className = "openInfoBtn";
 			}
 
-			function makeButtonResponsive() {
+			function makeOpenModalBtnResponsive() {
 
 				infoModal = document.body.querySelector(".infoModal");
-				infoBtn.addEventListener("click", function() {
+				openInfoBtn.addEventListener("click", function() {
+					board.className = "board hidden";
 					infoModal.className = "infoModal";
+					makeCloseModalBtnResponsive();
+				});
+			}
+
+			function makeCloseModalBtnResponsive() {
+				
+				closeInfoBtn = document.body.querySelector(".closeInfoBtn");
+				closeInfoBtn.addEventListener("click", function() {
+					board.className = "board";
+					openInfoBtn.className = "openInfoBtn";
+					infoModal.className = "infoModal hidden";
 				});
 			}
 
@@ -450,8 +633,8 @@
 			}
 
 			renderBoard();
-			displayButton();
-			makeButtonResponsive();
+			displayOpenModalBtn();
+			makeOpenModalBtnResponsive();
 			makeBoardResponsive();
 
 		</script>
