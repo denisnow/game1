@@ -108,13 +108,13 @@
 
 			.infoTextContainer {
 				display: table-cell;
-    			vertical-align: middle;
+				vertical-align: middle;
 				font-size: 4vh;
 			}
 
 			.infoTextContainer > h3 {
 				display: table;
-    			margin: 2.5vh auto;
+				margin: 2.5vh auto;
 			}
 
 			.infoTextContainer > p {
@@ -128,7 +128,7 @@
 				position: absolute;
 				top: 2.2vh;
 				right: 7.3vh;
-				z-index: 2;
+				z-index: 1;
 			}
 
 			.closeInfoBtn::before {
@@ -138,7 +138,6 @@
 				background-repeat: no-repeat;
 				width: 6vh;
 				height: 6vh;
-				z-index: 1;
 			}
 
 			.visuallyHidden:not(:focus):not(:active) {
@@ -265,7 +264,6 @@
 
 				.infoTextContainer > p {
 					margin: 0 0 0 25px;
-					padding: 10px 0 10px;
 				}
 
 				.firstTextEl {
@@ -287,7 +285,6 @@
 				.closeInfoBtn {
 					cursor: pointer;
 					border: 0;
-					padding: 0;
 					float: right;
 					opacity: 0.8;
 					background: url('./img/closebtn.svg') no-repeat;
