@@ -322,15 +322,13 @@
 
 		<h1 class="visuallyHidden">15-puzzle game</h1>
 
-		<h2 class="visuallyHidden">Game board</h2>
-
 		<div class="board">
+			<h2 class="visuallyHidden">Game board</h2>
 			<button class="openInfoBtn hidden"><b>i</b></button>
 		</div>
 
-		<h2 class="visuallyHidden">Information about the game</h2>
-
 		<div class="infoModal hidden">
+			<h2 class="visuallyHidden">Information about the game</h2>
 			<button class="closeInfoBtn"></button>
 			<div class="infoTextWrapper">
 				<div class="infoTextContainer">
@@ -443,7 +441,6 @@
 				openInfoBtn.addEventListener("click", function() {
 					board.className = "board hidden";
 					infoModal.className = "infoModal";
-					makeCloseModalBtnResponsive();
 				});
 			}
 
@@ -635,6 +632,7 @@
 			renderBoard();
 			displayOpenModalBtn();
 			makeOpenModalBtnResponsive();
+			makeCloseModalBtnResponsive();
 			makeBoardResponsive();
 
 		</script>
