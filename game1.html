@@ -60,11 +60,17 @@
 				margin: 10px;
 			}
 
-			.openInfoBtn {
+			.button {
 				cursor: pointer;
-				position: relative;
 				border: 0;
-				padding: 0;
+			}
+
+			.button:hover {
+				opacity: 1;
+			}
+
+			.openInfoBtn {
+				position: relative;
 				float: right;
 				opacity: 0.8;
 				top: -19vw;
@@ -77,20 +83,12 @@
 				color: #298f91;
 			}
 
-			.openInfoBtn:hover {
-				opacity: 1;
-			}
-
 			.infoModal {
 				position:absolute;
-				bottom:0;
-				top:0;
-				left:0;
-				right:0;
-				margin-top:1vw;
-				margin-bottom:1vw;
-				margin-right:1vw;
-				margin-left:1vw;
+				bottom:1vw;
+				top:1vw;
+				left:1vw;
+				right:1vw;
 				background-color: white;
 				opacity: 0.8;
 			}
@@ -119,20 +117,17 @@
 
 			.infoTextContainer > p {
 				display: inline;
-				margin: 0;
-				margin: 0 0 0 4vh;
+				margin-left: 4vh;
 			}
 
 			.closeInfoBtn {
 				position: absolute;
-				cursor: pointer;
 				right: 3vw;
 				top: 3vw;
 				width: 13vw;
 				height: 13vw;
 				font-size: 0;
 				background-color: transparent;
-				border: 0;
 				z-index: 1;
 			}
 
@@ -230,7 +225,7 @@
 				}
 
 				.infoTextContainer > p {
-					margin: 0 0 0 4vw;
+					margin-left: 4vw;
 				}
 			}
 
@@ -278,12 +273,11 @@
 				}
 
 				.infoTextContainer > h3 {
-					display: table;
 					margin: 10px auto;
 				}
 
 				.infoTextContainer > p {
-					margin: 0 0 0 25px;
+					margin-left: 25px;
 				}
 
 				.openInfoBtn {
@@ -291,7 +285,7 @@
 					top: -80px;
 					width: 70px;
 					height: 70px;
-					font-size: 34px;
+					font-size: 45px;
 				}
 
 				.closeInfoBtn {
@@ -311,11 +305,6 @@
 					width: 38px;
 					height: 6px;
 				}
-
-				.closeInfoBtn:hover {
-					opacity: 1;
-				}
-
 			}
 		</style>
 
@@ -338,7 +327,7 @@
 
 		<div class="infoModal hidden">
 			<h2 class="visuallyHidden">Information about the game</h2>
-			<button class="closeInfoBtn"></button>
+			<button class="closeInfoBtn button"></button>
 			<div class="infoTextWrapper">
 				<div class="infoTextContainer">
 					<h3>Rules</h3>
@@ -441,7 +430,7 @@
 			function displayOpenModalBtn() {
 
 				openInfoBtn = document.body.querySelector(".openInfoBtn");
-				openInfoBtn.className = "openInfoBtn";
+				openInfoBtn.className = "openInfoBtn button";
 			}
 
 			function makeOpenModalBtnResponsive() {
@@ -458,7 +447,6 @@
 				closeInfoBtn = document.body.querySelector(".closeInfoBtn");
 				closeInfoBtn.addEventListener("click", function() {
 					board.className = "board";
-					openInfoBtn.className = "openInfoBtn";
 					infoModal.className = "infoModal hidden";
 				});
 			}
