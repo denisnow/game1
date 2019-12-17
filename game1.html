@@ -18,6 +18,21 @@
 				font-family: Times, "Times New Roman", serif;
 			}
 
+			noscript > p {
+				display: inline-block;
+				margin: 10px;
+			}
+
+			button {
+				cursor: pointer;
+				border: 0;
+				position: absolute;
+			}
+
+			button:hover {
+				opacity: 1;
+			}
+
 			.board {
 				position: fixed;
 				width: 99vw;
@@ -55,23 +70,7 @@
 				cursor: pointer;
 			}
 
-			noscript > p {
-				display: inline-block;
-				margin: 10px;
-			}
-
-			.button {
-				cursor: pointer;
-				border: 0;
-			}
-
-			.button:hover {
-				opacity: 1;
-			}
-
 			.openInfoBtn {
-				position: relative;
-				float: right;
 				opacity: 0.8;
 				top: -19vw;
 				right: 4vw;
@@ -81,6 +80,35 @@
 				font-size: 11vw;
 				background: url('./img/infobtn.svg') no-repeat;
 				color: #298f91;
+			}
+
+			.closeInfoBtn {
+				right: 3vw;
+				top: 3vw;
+				width: 13vw;
+				height: 13vw;
+				font-size: 0;
+				background-color: transparent;
+				z-index: 1;
+			}
+
+			.closeInfoBtn::before,
+			.closeInfoBtn::after {
+				content:"";
+				position: absolute;
+				right: -0.5vw;
+				top: 5.5vw;
+				width: 14vw;
+				height: 2vw;
+				background-color: #298f91;
+			}
+
+			.closeInfoBtn::before {
+				transform: rotate(45deg);
+			}
+
+			.closeInfoBtn::after {
+				transform: rotate(-45deg);
 			}
 
 			.infoModal {
@@ -118,36 +146,6 @@
 			.infoTextContainer > p {
 				display: inline;
 				margin-left: 4vh;
-			}
-
-			.closeInfoBtn {
-				position: absolute;
-				right: 3vw;
-				top: 3vw;
-				width: 13vw;
-				height: 13vw;
-				font-size: 0;
-				background-color: transparent;
-				z-index: 1;
-			}
-
-			.closeInfoBtn::before,
-			.closeInfoBtn::after {
-				content:"";
-				position: absolute;
-				right: -0.5vw;
-				top: 5.5vw;
-				width: 14vw;
-				height: 2vw;
-				background-color: #298f91;
-			}
-
-			.closeInfoBtn::before {
-				transform: rotate(45deg);
-			}
-
-			.closeInfoBtn::after {
-				transform: rotate(-45deg);
 			}
 
 			.visuallyHidden:not(:focus):not(:active) {
@@ -327,7 +325,7 @@
 
 		<section class="infoModal hidden">
 			<h2 class="visuallyHidden">Information about the game</h2>
-			<button class="closeInfoBtn button"></button>
+			<button class="closeInfoBtn"></button>
 			<div class="infoTextWrapper">
 				<div class="infoTextContainer">
 					<h3>Rules</h3>
@@ -430,7 +428,7 @@
 			function displayOpenModalBtn() {
 
 				openInfoBtn = document.body.querySelector(".openInfoBtn");
-				openInfoBtn.className = "openInfoBtn button";
+				openInfoBtn.className = "openInfoBtn";
 			}
 
 			function makeOpenModalBtnResponsive() {
