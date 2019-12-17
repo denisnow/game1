@@ -72,13 +72,19 @@
 
 			.openInfoBtn {
 				opacity: 0.8;
-				top: -19vw;
 				right: 4vw;
+				top: -19vw;
 				width: 15vw;
 				height: 15vw;
-				font-family: "Times New Roman", Times, serif;
-				font-size: 11vw;
 				background: url('./img/infobtn.svg') no-repeat;
+			}
+
+			.openInfoBtn::before {
+				content:"i";
+				position: relative;
+				font-family: "Times New Roman", Times, serif;
+				font-size: 10vw;
+				font-weight: bold;
 				color: #298f91;
 			}
 
@@ -187,6 +193,9 @@
 					top: 0;
 					width: 16vh;
 					height: 16vh;
+				}
+
+				.openInfoBtn::before {
 					font-size: 10vh;
 				}
 
@@ -283,6 +292,9 @@
 					top: -80px;
 					width: 70px;
 					height: 70px;
+				}
+
+				.openInfoBtn::before {
 					font-size: 45px;
 				}
 
@@ -320,7 +332,7 @@
 
 		<section class="board">
 			<h2 class="visuallyHidden">Game board</h2>
-			<button class="openInfoBtn hidden"><b>i</b></button>
+			<button class="openInfoBtn hidden"></button>
 		</section>
 
 		<section class="infoModal hidden">
