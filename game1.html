@@ -124,20 +124,35 @@
 			}
 
 			.closeInfoBtn {
-				border: 0;
 				position: absolute;
-				top: 2.2vh;
-				right: 7.3vh;
+				cursor: pointer;
+				right: 3vw;
+				top: 3vw;
+				width: 13vw;
+				height: 13vw;
+				font-size: 0;
+				background-color: transparent;
+				border: 0;
 				z-index: 1;
 			}
 
-			.closeInfoBtn::before {
+			.closeInfoBtn::before,
+			.closeInfoBtn::after {
 				content:"";
 				position: absolute;
-				background-image: url("img/closebtn2.svg");
-				background-repeat: no-repeat;
-				width: 6vh;
-				height: 6vh;
+				right: -0.5vw;
+				top: 5.5vw;
+				width: 14vw;
+				height: 2vw;
+				background-color: #298f91;
+			}
+
+			.closeInfoBtn::before {
+				transform: rotate(45deg);
+			}
+
+			.closeInfoBtn::after {
+				transform: rotate(-45deg);
 			}
 
 			.visuallyHidden:not(:focus):not(:active) {
@@ -183,13 +198,18 @@
 				}
 
 				.closeInfoBtn {
-					top: 2.2vw;
-					right: 7.3vw;
+					right: 3vh;
+					top: 3vh;
+					width: 13vh;
+					height: 13vh;
 				}
 
-				.closeInfoBtn::before {
-					width: 6vw;
-					height: 6vw;
+				.closeInfoBtn::before,
+				.closeInfoBtn::after {
+					right: -0.5vh;
+					top: 5.5vh;
+					width: 14vh;
+					height: 2vh;
 				}
 
 				.infoModal {
@@ -275,27 +295,27 @@
 				}
 
 				.closeInfoBtn {
-					cursor: pointer;
-					border: 0;
-					float: right;
 					opacity: 0.8;
-					background: url('./img/closebtn.svg') no-repeat;
-					right: -70px;
+					border-radius: 50%;
+					background-color: white;
 					top: -70px;
+					right: -70px;
 					width: 60px;
 					height: 60px;
 				}
 
-				.closeInfoBtn::before {
-					left: 15px;
-					top: 15px;
-					width: 30px;
-					height: 30px;
+				.closeInfoBtn::before,
+				.closeInfoBtn::after {
+					top: 27px;
+					left: 11px;
+					width: 38px;
+					height: 6px;
 				}
 
 				.closeInfoBtn:hover {
 					opacity: 1;
 				}
+
 			}
 		</style>
 
