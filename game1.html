@@ -320,12 +320,12 @@
 
 		<h1 class="visuallyHidden">15-puzzle game</h1>
 
-		<div class="board">
+		<section class="board">
 			<h2 class="visuallyHidden">Game board</h2>
 			<button class="openInfoBtn hidden"><b>i</b></button>
-		</div>
+		</section>
 
-		<div class="infoModal hidden">
+		<section class="infoModal hidden">
 			<h2 class="visuallyHidden">Information about the game</h2>
 			<button class="closeInfoBtn button"></button>
 			<div class="infoTextWrapper">
@@ -336,16 +336,16 @@
 					<p>Sort first two rows, then place '9' and '13' tiles on their destination places, finally sort remaining tiles.</p>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<script>
 
 			var board,	      // board element
 				matrix,	      // 2D array containing block elements
 				voidC,	      // void coordinates
-				openInfoBtn,  // button to open information modal window
-				closeInfoBtn, // button to close information modal window
-				infoModal;    // information modal window element
+				openInfoBtn,  // button to display informational section
+				closeInfoBtn, // button to hide informational section
+				infoModal;    // informational section element
 
 			function renderBoard() {
 
