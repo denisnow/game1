@@ -47,7 +47,6 @@
 
 			.blockNumber {
 				display: table-cell;
-				position: relative;
 				text-align: center;
 				vertical-align: middle;
 				height: 23.75vw;
@@ -81,7 +80,6 @@
 
 			.openInfoBtn::before {
 				content:"i";
-				position: relative;
 				font-family: "Times New Roman", Times, serif;
 				font-size: 10vw;
 				font-weight: bold;
@@ -131,7 +129,6 @@
 				width: 100%;
 				height: 100%;
 				display: table;
-				position: relative;
 				vertical-align: middle;
 				margin: auto 0 auto 0;
 				padding: 2vh;
@@ -328,22 +325,26 @@
 			<p>Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
 		</noscript>
 
-		<h1 class="visuallyHidden">15-puzzle game</h1>
+		<h1 class="visuallyHidden">The 15-puzzle game</h1>
 
 		<section class="board">
-			<h2 class="visuallyHidden">Game board</h2>
-			<button class="openInfoBtn hidden" title="Display information about the game"><span class="visuallyHidden">Display information about the game</span></button>
+			<h2 class="visuallyHidden">The game board</h2>
+			<button class="openInfoBtn hidden" title="Display information about the game">
+				<span class="visuallyHidden">Information</span>
+			</button>
 		</section>
 
 		<section class="infoModal hidden">
 			<h2 class="visuallyHidden">Information about the game</h2>
-			<button class="closeInfoBtn" title="Hide information"><span class="visuallyHidden">Hide information</span></button>
+			<button class="closeInfoBtn" title="Return to the game board">
+				<span class="visuallyHidden">Close</span>
+			</button>
 			<div class="infoTextWrapper">
 				<div class="infoTextContainer">
 					<h3>Rules</h3>
-					<p>The object of the game is to place the tiles in ascending order.</p>
-					<h3>Hint</h3>
-					<p>Sort first two rows, then place '9' and '13' tiles on their destination places, finally sort remaining tiles.</p>
+					<p>Place the tiles in ascending order.</p>
+					<h3>Hints</h3>
+					<p>Sort the first two rows, then place the '9' and the '13' tile on their destination places, finally sort remaining tiles.</p>
 				</div>
 			</div>
 		</section>
@@ -641,6 +642,11 @@
 			makeOpenModalBtnResponsive();
 			makeCloseModalBtnResponsive();
 			makeBoardResponsive();
+
+			(function() {
+					board.className = "board hidden";
+					infoModal.className = "infoModal";
+				})();
 			
 		</script>
 
