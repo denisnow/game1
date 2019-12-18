@@ -149,6 +149,7 @@
 			.infoTextContainer > p {
 				display: inline;
 				margin-left: 4vh;
+				hyphens: auto;
 			}
 
 			.visuallyHidden:not(:focus):not(:active) {
@@ -642,11 +643,6 @@
 			makeOpenModalBtnResponsive();
 			makeCloseModalBtnResponsive();
 			makeBoardResponsive();
-
-			(function() {
-					board.className = "board hidden";
-					infoModal.className = "infoModal";
-				})();
 			
 		</script>
 
