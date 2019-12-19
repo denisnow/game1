@@ -18,11 +18,6 @@
 				font-family: Times, "Times New Roman", serif;
 			}
 
-			noscript > p {
-				display: inline-block;
-				margin: 10px;
-			}
-
 			button {
 				cursor: pointer;
 				border: 0;
@@ -69,7 +64,7 @@
 				cursor: pointer;
 			}
 
-			.openInfoBtn {
+			.openAboutBtn {
 				font-family: inherit;
 				opacity: 0.8;
 				right: 4vw;
@@ -79,14 +74,14 @@
 				background: url('./img/infobtn.svg') no-repeat;
 			}
 
-			.openInfoBtn::before {
+			.openAboutBtn::before {
 				content: "i";
 				font-size: 10vw;
 				font-weight: bold;
 				color: #298f91;
 			}
 
-			.closeInfoBtn {
+			.closeAboutBtn {
 				right: 3vw;
 				top: 3vw;
 				width: 13vw;
@@ -96,8 +91,8 @@
 				z-index: 1;
 			}
 
-			.closeInfoBtn::before,
-			.closeInfoBtn::after {
+			.closeAboutBtn::before,
+			.closeAboutBtn::after {
 				content: "";
 				position: absolute;
 				right: -0.5vw;
@@ -107,19 +102,19 @@
 				background-color: #298f91;
 			}
 
-			.closeInfoBtn::before {
+			.closeAboutBtn::before {
 				transform: rotate(45deg);
 				-ms-transform: rotate(45deg);
 				-webkit-transform: rotate(45deg);
 			}
 
-			.closeInfoBtn::after {
+			.closeAboutBtn::after {
 				transform: rotate(-45deg);
 				-ms-transform: rotate(-45deg);
 				-webkit-transform: rotate(-45deg);
 			}
 
-			.infoModal {
+			.textArea {
 				position: absolute;
 				bottom: 1vw;
 				top: 1vw;
@@ -129,7 +124,7 @@
 				opacity: 0.8;
 			}
 
-			.infoTextWrapper {
+			.textWrapper {
 				width: 100%;
 				height: 100%;
 				display: table;
@@ -137,18 +132,18 @@
 				box-sizing: border-box;
 			}
 
-			.infoTextContainer {
+			.textContainer {
 				display: table-cell;
 				vertical-align: middle;
 				font-size: 4vh;
 			}
 
-			.infoTextContainer > h3 {
+			.textContainer > h3 {
 				text-align: center;
 				margin: 2.5vh 0;
 			}
 
-			.infoTextContainer > p {
+			.textContainer > p {
 				display: inline;
 				margin-left: 4vh;
 				hyphens: auto;
@@ -188,33 +183,33 @@
 					font-size: 10vh;
 				}
 
-				.openInfoBtn {
+				.openAboutBtn {
 					right: -25vh;
 					top: 0;
 					width: 16vh;
 					height: 16vh;
 				}
 
-				.openInfoBtn::before {
+				.openAboutBtn::before {
 					font-size: 10vh;
 				}
 
-				.closeInfoBtn {
+				.closeAboutBtn {
 					right: 3vh;
 					top: 3vh;
 					width: 13vh;
 					height: 13vh;
 				}
 
-				.closeInfoBtn::before,
-				.closeInfoBtn::after {
+				.closeAboutBtn::before,
+				.closeAboutBtn::after {
 					right: -0.5vh;
 					top: 5.5vh;
 					width: 14vh;
 					height: 2vh;
 				}
 
-				.infoModal {
+				.textArea {
 					top: 50%;
 					left: 50%;
 					height: 80vh;
@@ -222,19 +217,19 @@
 					margin: -40vh 0 0 -48vw;
 				}
 
-				.infoTextWrapper {
+				.textWrapper {
 					padding: 0.7vw 3.2vw 3.2vw;
 				}
 
-				.infoTextContainer {
+				.textContainer {
 					font-size: 3vw;
 				}
 
-				.infoTextContainer > h3 {
+				.textContainer > h3 {
 					margin: 2.5vw 0;
 				}
 
-				.infoTextContainer > p {
+				.textContainer > p {
 					margin-left: 4vw;
 				}
 			}
@@ -261,7 +256,7 @@
 					font-size: 39px;
 				}
 
-				.infoModal {
+				.textArea {
 					top: 50%;
 					left: 50%;
 					height: 380px;
@@ -271,37 +266,37 @@
 					opacity: 1;
 				}
 
-				.infoTextWrapper {
+				.textWrapper {
 					padding: 0;
 				}
 
-				.infoTextContainer {
+				.textContainer {
 					background-color: white;
 					padding: 17px 27px 27px;
 					opacity: 0.8;
 					font-size: 32px;
 				}
 
-				.infoTextContainer > h3 {
+				.textContainer > h3 {
 					margin: 10px 0;
 				}
 
-				.infoTextContainer > p {
+				.textContainer > p {
 					margin-left: 28px;
 				}
 
-				.openInfoBtn {
+				.openAboutBtn {
 					right: -76px;
 					top: -80px;
 					width: 70px;
 					height: 70px;
 				}
 
-				.openInfoBtn::before {
+				.openAboutBtn::before {
 					font-size: 45px;
 				}
 
-				.closeInfoBtn {
+				.closeAboutBtn {
 					opacity: 0.8;
 					border-radius: 50%;
 					background-color: white;
@@ -311,8 +306,8 @@
 					height: 60px;
 				}
 
-				.closeInfoBtn::before,
-				.closeInfoBtn::after {
+				.closeAboutBtn::before,
+				.closeAboutBtn::after {
 					top: 27px;
 					left: 11px;
 					width: 38px;
@@ -325,28 +320,31 @@
 
 	<body>
 
-		<noscript class="text">
-			<p>This page requires JavaScript.</p>
-			<p>Your browser doesn't support JavaScript or JavaScript is disabled.</p>
-			<p>Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
-		</noscript>
-
 		<h1 class="visuallyHidden">The 15-puzzle game</h1>
+
+		<noscript class="textArea">
+			<h2 class="visuallyHidden">Noscript section</h2>
+			<div class="textWrapper">
+				<div class="textContainer">
+					<p>This page requires JavaScript. Your browser doesn't support JavaScript or JavaScript is disabled. Here are the <a href="https://www.enable-javascript.com/">instructions how to enable JavaScript in your browser</a>.</p>
+				</div>
+			</div>
+		</noscript>
 
 		<section class="board">
 			<h2 class="visuallyHidden">The game board</h2>
-			<button class="openInfoBtn hidden" title="Display information about the game">
+			<button class="openAboutBtn hidden" title="Display information about the game">
 				<span class="visuallyHidden">Information</span>
 			</button>
 		</section>
 
-		<section class="infoModal hidden">
+		<section class="textArea about hidden">
 			<h2 class="visuallyHidden">Information about the game</h2>
-			<button class="closeInfoBtn" title="Return to the game board">
+			<button class="closeAboutBtn" title="Return to the game board">
 				<span class="visuallyHidden">Close</span>
 			</button>
-			<div class="infoTextWrapper">
-				<div class="infoTextContainer">
+			<div class="textWrapper">
+				<div class="textContainer">
 					<h3>Rules</h3>
 					<p>Place the tiles in ascending order.</p>
 					<h3>Hints</h3>
@@ -357,12 +355,12 @@
 
 		<script>
 
-			var board,	      // board element
-				matrix,	      // 2D array containing block elements
-				voidC,	      // void coordinates
-				openInfoBtn,  // button to display informational section
-				closeInfoBtn, // button to hide informational section
-				infoModal;    // informational section element
+			var board,	       // board element
+				matrix,	       // 2D array containing block elements
+				voidC,	       // void coordinates
+				openAboutBtn,  // button to display textAreaal section
+				closeAboutBtn, // button to hide textAreaal section
+				about;         // section element whith textArea about game
 
 			function renderBoard() {
 
@@ -446,25 +444,25 @@
 
 			function displayOpenModalBtn() {
 
-				openInfoBtn = document.body.querySelector(".openInfoBtn");
-				openInfoBtn.className = "openInfoBtn";
+				openAboutBtn = document.body.querySelector(".openAboutBtn");
+				openAboutBtn.className = "openAboutBtn";
 			}
 
 			function makeOpenModalBtnResponsive() {
 
-				infoModal = document.body.querySelector(".infoModal");
-				openInfoBtn.addEventListener("click", function() {
+				about = document.body.querySelector(".about");
+				openAboutBtn.addEventListener("click", function() {
 					board.className = "board hidden";
-					infoModal.className = "infoModal";
+					about.className = "textArea about";
 				});
 			}
 
 			function makeCloseModalBtnResponsive() {
 				
-				closeInfoBtn = document.body.querySelector(".closeInfoBtn");
-				closeInfoBtn.addEventListener("click", function() {
+				closeAboutBtn = document.body.querySelector(".closeAboutBtn");
+				closeAboutBtn.addEventListener("click", function() {
 					board.className = "board";
-					infoModal.className = "infoModal hidden";
+					about.className = "textArea about hidden";
 				});
 			}
 
