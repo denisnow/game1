@@ -109,10 +109,14 @@
 
 			.closeInfoBtn::before {
 				transform: rotate(45deg);
+				-ms-transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
 			}
 
 			.closeInfoBtn::after {
 				transform: rotate(-45deg);
+				-ms-transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
 			}
 
 			.infoModal {
@@ -129,7 +133,7 @@
 				width: 100%;
 				height: 100%;
 				display: table;
-				padding: 3vh;
+				padding: 0.5vh 3vh 3vh;
 				box-sizing: border-box;
 			}
 
@@ -211,7 +215,6 @@
 				}
 
 				.infoModal {
-					position: absolute;
 					top: 50%;
 					left: 50%;
 					height: 80vh;
@@ -220,7 +223,7 @@
 				}
 
 				.infoTextWrapper {
-					padding: 3.2vw;
+					padding: 0.7vw 3.2vw 3.2vw;
 				}
 
 				.infoTextContainer {
@@ -274,7 +277,7 @@
 
 				.infoTextContainer {
 					background-color: white;
-					padding: 27px;
+					padding: 17px 27px 27px;
 					opacity: 0.8;
 					font-size: 32px;
 				}
