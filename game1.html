@@ -22,6 +22,7 @@
 				cursor: pointer;
 				border: 0;
 				position: absolute;
+				opacity: 0.8;
 			}
 
 			button:hover {
@@ -66,7 +67,6 @@
 
 			.openAboutBtn {
 				font-family: inherit;
-				opacity: 0.8;
 				right: 4vw;
 				top: -19vw;
 				width: 15vw;
@@ -86,7 +86,6 @@
 				top: 3vw;
 				width: 13vw;
 				height: 13vw;
-				font-size: 0;
 				background-color: transparent;
 				z-index: 1;
 			}
@@ -120,8 +119,6 @@
 				top: 1vw;
 				left: 1vw;
 				right: 1vw;
-				background-color: white;
-				opacity: 0.8;
 			}
 
 			.textWrapper {
@@ -130,6 +127,8 @@
 				display: table;
 				padding: 0.5vh 3vh 3vh;
 				box-sizing: border-box;
+				background-color: white;
+				opacity: 0.8;
 			}
 
 			.textContainer {
@@ -262,7 +261,6 @@
 					height: 380px;
 					width: 520px;
 					margin: -190px 0 0 -260px;
-					background-color: transparent;
 					opacity: 1;
 				}
 
@@ -271,9 +269,7 @@
 				}
 
 				.textContainer {
-					background-color: white;
 					padding: 17px 27px 27px;
-					opacity: 0.8;
 					font-size: 32px;
 				}
 
@@ -297,7 +293,6 @@
 				}
 
 				.closeAboutBtn {
-					opacity: 0.8;
 					border-radius: 50%;
 					background-color: white;
 					top: -70px;
@@ -461,8 +456,8 @@
 				
 				closeAboutBtn = document.body.querySelector(".closeAboutBtn");
 				closeAboutBtn.addEventListener("click", function() {
-					board.className = "board";
 					about.className = "textArea about hidden";
+					board.className = "board";
 				});
 			}
 
