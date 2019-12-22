@@ -52,13 +52,10 @@
 				-khtml-user-select: none;
 				-moz-user-select: none;
 				-ms-user-select: none;
-			}
-
-			.text {
 				background-color: white;
-				opacity: 0.77;
 				font-family: Helvetica, Arial, sans-serif;
 				font-size: 11vw;
+				opacity: 0.77;
 			}
 
 			.clickable {
@@ -176,9 +173,6 @@
 				.blockNumber {
 					height: 19vh;
 					width: 19vh;
-				}
-
-				.text {
 					font-size: 10vh;
 				}
 
@@ -249,9 +243,6 @@
 				.blockNumber {
 					height: 96px;
 					width: 96px;
-				}
-
-				.text {
 					font-size: 39px;
 				}
 
@@ -421,7 +412,7 @@
 								block.m=i;
 								block.n=j;
 								blockNumber = document.createElement("div");
-								blockNumber.className = "blockNumber text";
+								blockNumber.className = "blockNumber";
 								blockNumber.textContent = arr[arrIndex];
 								block.appendChild(blockNumber);
 								board.appendChild(block);
