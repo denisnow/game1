@@ -37,11 +37,11 @@
 				margin: -50vw 0 0 1vw;
 			}
 
-			.block {
+			.tileWrapper {
 				position: absolute;
 			}
 
-			.blockNumber {
+			.tile {
 				display: table-cell;
 				text-align: center;
 				vertical-align: middle;
@@ -170,7 +170,7 @@
 					margin: -39.5vh 0 0 -40vh;
 				}
 
-				.blockNumber {
+				.tile {
 					height: 19vh;
 					width: 19vh;
 					font-size: 10vh;
@@ -240,7 +240,7 @@
 					margin: -200px 0 0 -200px;
 				}
 
-				.blockNumber {
+				.tile {
 					height: 96px;
 					width: 96px;
 					font-size: 39px;
@@ -342,17 +342,17 @@
 		<script>
 
 			var board,	       // board element
-				matrix,	       // 2D array containing block elements
+				matrix,	       // 2D array containing tile elements
 				voidC,	       // void coordinates
-				openAboutBtn,  // button to display textAreaal section
-				closeAboutBtn, // button to hide textAreaal section
-				about;         // section element whith textArea about game
+				about,         // section element with information about game
+				openAboutBtn,  // button to display about element
+				closeAboutBtn; // button to hide about element
 
 			function renderBoard() {
 
-				function makeMatrixAndRenderBlocks() {
+				function makeMatrixAndRenderTiles() {
 
-					var arr, block, blockNumber,
+					var arr, tileWrapper, tile,
 						arrIndex = 0;
 
 					function makeArray() {
@@ -406,17 +406,17 @@
 						matrix[i] = [];
 						for (var j = 0; j < 4; j++) {
 							if (arr[arrIndex]) {
-								block = document.createElement("div");
-								block.className = "block";
-								block.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
-								block.m=i;
-								block.n=j;
-								blockNumber = document.createElement("div");
-								blockNumber.className = "blockNumber";
-								blockNumber.textContent = arr[arrIndex];
-								block.appendChild(blockNumber);
-								board.appendChild(block);
-								matrix[i][j] = block;
+								tileWrapper = document.createElement("div");
+								tileWrapper.className = "tileWrapper";
+								tileWrapper.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
+								tileWrapper.m=i;
+								tileWrapper.n=j;
+								tile = document.createElement("div");
+								tile.className = "tile";
+								tile.textContent = arr[arrIndex];
+								tileWrapper.appendChild(tile);
+								board.appendChild(tileWrapper);
+								matrix[i][j] = tileWrapper;
 							}
 							else voidC = {m: i, n: j};
 							arrIndex++;
@@ -425,7 +425,7 @@
 				}
 
 				board = document.body.querySelector(".board");
-				makeMatrixAndRenderBlocks();
+				makeMatrixAndRenderTiles();
 			}
 
 			function displayOpenModalBtn() {
@@ -454,7 +454,7 @@
 
 			function makeBoardResponsive() {
 
-				board.processMovableBlocks = function(classString) {
+				board.processMovableTiles = function(classString) {
 
 					for (var i = 0; i < 4; i++) {
 						if (i !== voidC.n) board.setClassName(matrix[voidC.m][i], classString);
@@ -465,9 +465,9 @@
 				board.clickHandler = function(e) {
 
 					if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-						board.makeBlocksStatic();
+						board.makeTilesStatic();
 						board.targetElement = e.target.parentNode;
-						board.moveBlocks();
+						board.moveTiles();
 					}
 				};
 
@@ -476,19 +476,19 @@
 					element.className = classString;
 				};
 
-				board.makeBlocksResponsive = function() {
+				board.makeTilesResponsive = function() {
 
-					board.processMovableBlocks("block clickable");
+					board.processMovableTiles("tileWrapper clickable");
 					board.addEventListener("click", board.clickHandler);
 				};
 
-				board.makeBlocksStatic = function() {
+				board.makeTilesStatic = function() {
 
-					board.processMovableBlocks("block");
+					board.processMovableTiles("tileWrapper");
 					board.removeEventListener("click", board.clickHandler);
 				};
 
-				board.moveBlocksUp = function() {
+				board.moveTilesUp = function() {
 
 					for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
 						matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i-board.percentCount) + "%;");
@@ -497,10 +497,10 @@
 							matrix[i-1][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (board.percentCount === 25) voidC.m += board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.m += board.amountOfTiles;
 				};
 
-				board.moveBlocksDown = function() {
+				board.moveTilesDown = function() {
 
 					for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
 						matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i+board.percentCount) + "%;");
@@ -509,13 +509,13 @@
 							matrix[i+1][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (board.percentCount === 25) voidC.m -= board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.m -= board.amountOfTiles;
 				};
 
 				/*
 				board.verticalMove = function() {
 
-					board.vd = (voidC.m-board.targetElement.m)/board.amountOfBlocks; //vector direction
+					board.vd = (voidC.m-board.targetElement.m)/board.amountOfTiles; //vector direction
 
 					for (var i = voidC.m-board.vd; i*board.vd >= board.targetElement.m*board.vd; i -= board.vd) {
 						matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.percentCount*board.vd) + "px;");
@@ -524,11 +524,11 @@
 							matrix[i+board.vd][voidC.n] = matrix[i][voidC.n];
 						}
 					}
-					if (board.percentCount === 100) voidC.m -= board.amountOfBlocks*board.vd;
+					if (board.percentCount === 100) voidC.m -= board.amountOfTiles*board.vd;
 				};
 				*/				
 				
-				board.moveBlocksToTheRight = function() {
+				board.moveTilesToTheRight = function() {
 
 					for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
 						matrix[voidC.m][i].setAttribute("style", "left: " + (25*i+board.percentCount) + "%; top: " + 25*voidC.m + "%;");
@@ -537,10 +537,10 @@
 							matrix[voidC.m][i+1] = matrix[voidC.m][i];
 						}
 					}
-					if (board.percentCount === 25) voidC.n -= board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.n -= board.amountOfTiles;
 				};
 
-				board.moveBlocksToTheLeft = function() {
+				board.moveTilesToTheLeft = function() {
 
 					for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
 						matrix[voidC.m][i].setAttribute("style", "left: " + (25*i-board.percentCount) + "%; top: " + 25*voidC.m + "%;");
@@ -549,13 +549,13 @@
 							matrix[voidC.m][i-1] = matrix[voidC.m][i];
 						}
 					}
-					if (board.percentCount === 25) voidC.n += board.amountOfBlocks;
+					if (board.percentCount === 25) voidC.n += board.amountOfTiles;
 				};
 
 				/*
 				board.horizontalMove = function() {
 
-					board.vd = (voidC.n-board.targetElement.n)/board.amountOfBlocks; //vector direction
+					board.vd = (voidC.n-board.targetElement.n)/board.amountOfTiles; //vector direction
 
 					for (var i = voidC.n-board.vd; i*board.vd >= board.targetElement.n*board.vd; i -= board.vd) {
 						matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.percentCount*board.vd) + "px; top: " + 100*voidC.m + "px;");
@@ -564,27 +564,27 @@
 							matrix[voidC.m][i+board.vd] = matrix[voidC.m][i];
 						}
 					}
-					if (board.percentCount === 100) voidC.n -= board.amountOfBlocks*board.vd;
+					if (board.percentCount === 100) voidC.n -= board.amountOfTiles*board.vd;
 				};
 				*/
 
-				board.setBlocksMovingDirection = function() {
+				board.setTilesMovingDirection = function() {
 
 					if (board.targetElement.m !== voidC.m) {
-						if (board.targetElement.m > voidC.m) board.moveBlocksPartially = board.moveBlocksUp;
-						else board.moveBlocksPartially = board.moveBlocksDown;
+						if (board.targetElement.m > voidC.m) board.moveTilesPartially = board.moveTilesUp;
+						else board.moveTilesPartially = board.moveTilesDown;
 					}
 					else {
-						if (board.targetElement.n < voidC.n) board.moveBlocksPartially = board.moveBlocksToTheRight;
-						else board.moveBlocksPartially = board.moveBlocksToTheLeft;
+						if (board.targetElement.n < voidC.n) board.moveTilesPartially = board.moveTilesToTheRight;
+						else board.moveTilesPartially = board.moveTilesToTheLeft;
 					}
 				};
 
 				/*
 				board.checkMovingAxis = function() {
 
-					if (board.targetElement.m !== voidC.m) board.moveBlocksPartially = board.verticalMove;
-					else board.moveBlocksPartially = board.horizontalMove;
+					if (board.targetElement.m !== voidC.m) board.moveTilesPartially = board.verticalMove;
+					else board.moveTilesPartially = board.horizontalMove;
 				};
 				*/
 
@@ -607,24 +607,24 @@
 					}
 				};
 
-				board.moveBlocks = function() {
+				board.moveTiles = function() {
 
 					board.percentCount = 1;
-					board.amountOfBlocks = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
-					board.setBlocksMovingDirection();
+					board.amountOfTiles = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
+					board.setTilesMovingDirection();
 					board.intervalID = setInterval(function() {
 						board.percentCount += 2;
-						board.moveBlocksPartially();
+						board.moveTilesPartially();
 						if (board.percentCount === 25) {
 							clearInterval(board.intervalID);
 							matrix[voidC.m][voidC.n] = 0;
 							if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
-							if (!board.isSorted) board.makeBlocksResponsive();
+							if (!board.isSorted) board.makeTilesResponsive();
 						}
 					}, 3);
 				};
 
-				board.makeBlocksResponsive();
+				board.makeTilesResponsive();
 			}
 
 			renderBoard();
