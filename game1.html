@@ -458,6 +458,39 @@
 					}
 				}
 
+				function displayOpenModalBtn() {
+
+					openAboutBtn.className = "openAboutBtn";
+				}
+
+				function makeShuffleBtnResponsive() {
+
+					shuffleBtn.addEventListener("click", function() {
+						board.remove();
+						board = emptyBoard.cloneNode(true);
+						document.body.appendChild(board);
+						renderBoard();
+						makeBoardResponsive();
+					});
+				}
+
+				function makeOpenModalBtnResponsive() {
+
+					about = document.body.querySelector(".about");
+					openAboutBtn.addEventListener("click", function() {
+						board.className = "board hidden";
+						about.className = "textArea about";
+					});
+				}
+
+				function makeCloseModalBtnResponsive() {
+
+					closeAboutBtn.addEventListener("click", function() {
+						about.className = "textArea about hidden";
+						board.className = "board";
+					});
+				}
+
 				shuffleBtn = document.body.querySelector(".shuffleBtn");
 				openAboutBtn = document.body.querySelector(".openAboutBtn");
 				closeAboutBtn = document.body.querySelector(".closeAboutBtn");
@@ -467,41 +500,6 @@
 				makeCloseModalBtnResponsive();
 				makeShuffleBtnResponsive();
 
-			}
-
-			function displayOpenModalBtn() {
-
-				openAboutBtn.className = "openAboutBtn";
-			}
-
-			function makeShuffleBtnResponsive() {
-
-				var tiles;
-
-				shuffleBtn.addEventListener("click", function() {
-					board.remove();
-					board = emptyBoard.cloneNode(true);
-					document.body.appendChild(board);
-					renderBoard();
-					makeBoardResponsive();
-				});
-			}
-
-			function makeOpenModalBtnResponsive() {
-
-				about = document.body.querySelector(".about");
-				openAboutBtn.addEventListener("click", function() {
-					board.className = "board hidden";
-					about.className = "textArea about";
-				});
-			}
-
-			function makeCloseModalBtnResponsive() {
-
-				closeAboutBtn.addEventListener("click", function() {
-					about.className = "textArea about hidden";
-					board.className = "board";
-				});
 			}
 
 			function makeBoardResponsive() {
