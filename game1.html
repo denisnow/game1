@@ -378,15 +378,15 @@
 				matrix,	       // 2D array containing tile elements
 				voidC,	       // void coordinates
 				about,         // section element with information about game
-				shuffleBtn,    // button to shuffle tiles
-				openAboutBtn,  // button to display about element
-				closeAboutBtn; // button to hide about element
+				shuffleBtn;    // button to shuffle tiles
 
 			function renderBoard() {
 
+				var openAboutBtn, closeAboutBtn;
+				
 				function makeMatrixAndRenderTiles() {
 
-					var arr, tileWrapper, tile,
+					var arr, tileWrapper, tile, 
 						arrIndex = 0;
 
 					function makeArray() {
