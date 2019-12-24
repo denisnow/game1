@@ -10,7 +10,7 @@
 
 		<style>
 			body {
-				background-image: url('./img/bg.svg');
+				background-image: url("./img/bg.svg");
 				background-color: #87ceeb;
 				background-size: 250px 250px;
 				margin: 0;
@@ -62,13 +62,35 @@
 				cursor: pointer;
 			}
 
+			.shuffleBtn {
+				left: 3vw;
+				top: 3vw;
+				width: 13vw;
+				height: 13vw;
+				background-color: transparent;
+				z-index: 1;
+			}
+
+			.shuffleBtn {
+				background: url("./img/shufflebtn.svg");
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: 7.5vw 7.5vw;
+				background-color: white;
+				border-radius: 50%;
+				left: 4vw;
+				top: -19vw;
+				width: 15vw;
+				height: 15vw;
+			}
+
 			.openAboutBtn {
 				font-family: inherit;
 				right: 4vw;
 				top: -19vw;
 				width: 15vw;
 				height: 15vw;
-				background: url('./img/infobtn.svg') no-repeat;
+				background: url("./img/infobtn.svg") no-repeat;
 			}
 
 			.openAboutBtn::before {
@@ -176,6 +198,14 @@
 					font-size: 10vh;
 				}
 
+				.shuffleBtn {
+					background-size: 7.7vh 7.7vh;
+					left: -25vh;
+					top: 0;
+					width: 16vh;
+					height: 16vh;
+				}
+
 				.openAboutBtn {
 					right: -25vh;
 					top: 0;
@@ -272,6 +302,14 @@
 					margin-left: 28px;
 				}
 
+				.shuffleBtn {
+					background-size: 35px 35px;
+					top: -80px;
+					left: -76px;
+					width: 70px;
+					height: 70px;
+				}
+
 				.openAboutBtn {
 					right: -76px;
 					top: -80px;
@@ -319,6 +357,9 @@
 
 		<section class="board">
 			<h2 class="visuallyHidden">The game board</h2>
+			<button class="shuffleBtn hidden" title="Shuffle tiles">
+				<span class="visuallyHidden">Shuffle</span>
+			</button>
 			<button class="openAboutBtn hidden" title="Display information about the game">
 				<span class="visuallyHidden">Information</span>
 			</button>
@@ -342,9 +383,11 @@
 		<script>
 
 			var board,	       // board element
+				emptyBoard,    // clone of "empty" board element
 				matrix,	       // 2D array containing tile elements
 				voidC,	       // void coordinates
 				about,         // section element with information about game
+				shuffleBtn,    // button to shuffle tiles
 				openAboutBtn,  // button to display about element
 				closeAboutBtn; // button to hide about element
 
@@ -424,14 +467,33 @@
 					}
 				}
 
-				board = document.body.querySelector(".board");
+				shuffleBtn = document.body.querySelector(".shuffleBtn");
+				openAboutBtn = document.body.querySelector(".openAboutBtn");
+				closeAboutBtn = document.body.querySelector(".closeAboutBtn");
 				makeMatrixAndRenderTiles();
+				makeOpenModalBtnResponsive();
+				displayOpenModalBtn();
+				makeCloseModalBtnResponsive();
+				makeShuffleBtnResponsive();
+
 			}
 
 			function displayOpenModalBtn() {
 
-				openAboutBtn = document.body.querySelector(".openAboutBtn");
 				openAboutBtn.className = "openAboutBtn";
+			}
+
+			function makeShuffleBtnResponsive() {
+
+				var tiles;
+
+				shuffleBtn.addEventListener("click", function() {
+					board.remove();
+					board = emptyBoard.cloneNode(true);
+					document.body.appendChild(board);
+					renderBoard();
+					makeBoardResponsive();
+				});
 			}
 
 			function makeOpenModalBtnResponsive() {
@@ -444,8 +506,7 @@
 			}
 
 			function makeCloseModalBtnResponsive() {
-				
-				closeAboutBtn = document.body.querySelector(".closeAboutBtn");
+
 				closeAboutBtn.addEventListener("click", function() {
 					about.className = "textArea about hidden";
 					board.className = "board";
@@ -597,6 +658,7 @@
 								if (board.temp) {
 									if (i === 1 && j === 1) {
 										board.isSorted = true;
+										shuffleBtn.className = "shuffleBtn";
 										return;
 									}
 									if (Number(matrix[i][j].firstChild.textContent) !== board.temp-1) return;
@@ -627,11 +689,12 @@
 				board.makeTilesResponsive();
 			}
 
+			board = document.body.querySelector(".board");
+			emptyBoard = board.cloneNode(true);
 			renderBoard();
-			displayOpenModalBtn();
-			makeOpenModalBtnResponsive();
-			makeCloseModalBtnResponsive();
 			makeBoardResponsive();
+
+
 			
 		</script>
 
