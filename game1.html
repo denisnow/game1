@@ -466,7 +466,7 @@
 				function makeShuffleBtnResponsive() {
 
 					shuffleBtn.addEventListener("click", function() {
-						board.remove();
+						document.body.removeChild(board);
 						board = emptyBoard.cloneNode(true);
 						document.body.appendChild(board);
 						renderBoard();
