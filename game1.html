@@ -6,7 +6,7 @@
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>The 15-Puzzle Game</title>
+		<title>Supersiteme > The 15-Puzzle Game</title>
 
 		<style>
 			body {
@@ -373,12 +373,12 @@
 
 		<script>
 
-			var board,	       // board element
+			var board,         // board element
 				emptyBoard,    // clone of "empty" board element
 				matrix,	       // 2D array containing tile elements
 				voidC,	       // void coordinates
 				about,         // section element with information about game
-				shuffleBtn;    // button to shuffle tiles
+				shuffleBtn;    // button to shuffle tiles	
 
 			function renderBoard() {
 
@@ -458,6 +458,11 @@
 					}
 				}
 
+				makeMatrixAndRenderTiles();
+			}
+
+			function activateButtons() {
+
 				function displayOpenModalBtn() {
 
 					openAboutBtn.className = "openAboutBtn";
@@ -470,6 +475,7 @@
 						board = emptyBoard.cloneNode(true);
 						document.body.appendChild(board);
 						renderBoard();
+						activateButtons();
 						makeBoardResponsive();
 					});
 				}
@@ -494,7 +500,7 @@
 				shuffleBtn = document.body.querySelector(".shuffleBtn");
 				openAboutBtn = document.body.querySelector(".openAboutBtn");
 				closeAboutBtn = document.body.querySelector(".closeAboutBtn");
-				makeMatrixAndRenderTiles();
+
 				makeOpenAboutBtnResponsive();
 				displayOpenModalBtn();
 				makeCloseAboutBtnResponsive();
@@ -680,6 +686,7 @@
 			board = document.body.querySelector(".board");
 			emptyBoard = board.cloneNode(true);
 			renderBoard();
+			activateButtons();
 			makeBoardResponsive();
 
 		</script>
