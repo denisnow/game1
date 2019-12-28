@@ -485,7 +485,7 @@
 
 						about = document.body.querySelector(".about");
 						openAboutBtn.addEventListener("click", function() {
-							board.className = "board hidden";
+							board.className += " hidden";
 							about.className = "textArea about";
 						});
 					}
@@ -493,7 +493,7 @@
 					function makeCloseAboutBtnResponsive() {
 
 						closeAboutBtn.addEventListener("click", function() {
-							about.className = "textArea about hidden";
+							about.className += " hidden";
 							board.className = "board";
 						});
 					}
