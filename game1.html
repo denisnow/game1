@@ -10,19 +10,19 @@
 
 		<style>
 			body {
-				background-image: url("./img/bg.svg");
-				background-color: #87ceeb;
-				background-size: 250px 250px;
 				margin: 0;
-				color: #298f91;
 				font-family: Times, "Times New Roman", serif;
+				color: #298f91;
+				background-color: #87ceeb;
+				background-image: url("./img/bg.svg");
+				background-size: 250px 250px;
 			}
 
 			button {
-				cursor: pointer;
-				border: 0;
 				position: absolute;
+				border: 0;
 				opacity: 0.8;
+				cursor: pointer;
 			}
 
 			button:hover {
@@ -31,9 +31,9 @@
 
 			.board {
 				position: fixed;
+				top: 50%;
 				width: 99vw;
 				height: 99vw;
-				top: 50%;
 				margin: -50vw 0 0 1vw;
 			}
 
@@ -43,19 +43,19 @@
 
 			.tile {
 				display: table-cell;
+				width: 23.75vw;
+				height: 23.75vw;
+				font-family: Helvetica, Arial, sans-serif;
+				font-size: 11vw;
 				text-align: center;
 				vertical-align: middle;
-				height: 23.75vw;
-				width: 23.75vw;
+				background-color: white;
+				opacity: 0.77;
 				user-select: none;
 				-webkit-user-select: none;
 				-khtml-user-select: none;
 				-moz-user-select: none;
 				-ms-user-select: none;
-				background-color: white;
-				font-family: Helvetica, Arial, sans-serif;
-				font-size: 11vw;
-				opacity: 0.77;
 			}
 
 			.clickable {
@@ -69,19 +69,20 @@
 			}
 
 			.shuffleBtn {
-				background: url("./img/shufflebtn.svg");
+				left: 4vw;
+				background-color: white;
+				background-image: url("./img/shufflebtn.svg");
 				background-repeat: no-repeat;
 				background-position: center;
 				background-size: 7.5vw 7.5vw;
-				background-color: white;
 				border-radius: 50%;
-				left: 4vw;
 			}
 
 			.openAboutBtn {
-				font-family: inherit;
 				right: 4vw;
-				background: url("./img/infobtn.svg") no-repeat;
+				font-family: inherit;
+				background: url("./img/infobtn.svg");
+				background-repeat: no-repeat;
 			}
 
 			.openAboutBtn::before {
@@ -92,20 +93,20 @@
 			}
 
 			.closeAboutBtn {
-				right: 3vw;
 				top: 3vw;
+				right: 3vw;
+				z-index: 1;
 				width: 13vw;
 				height: 13vw;
 				background-color: transparent;
-				z-index: 1;
 			}
 
 			.closeAboutBtn::before,
 			.closeAboutBtn::after {
 				content: "";
 				position: absolute;
-				right: -0.5vw;
 				top: 5.5vw;
+				right: -0.5vw;
 				width: 14vw;
 				height: 2vw;
 				background-color: #298f91;
@@ -125,31 +126,31 @@
 
 			.textArea {
 				position: absolute;
-				bottom: 1vw;
 				top: 1vw;
-				left: 1vw;
 				right: 1vw;
+				bottom: 1vw;
+				left: 1vw;
 			}
 
 			.textWrapper {
+				display: table;
+				box-sizing: border-box;
 				width: 100%;
 				height: 100%;
-				display: table;
 				padding: 0.5vh 3vh 3vh;
-				box-sizing: border-box;
 				background-color: white;
 				opacity: 0.8;
 			}
 
 			.textContainer {
 				display: table-cell;
-				vertical-align: middle;
 				font-size: 4vh;
+				vertical-align: middle;
 			}
 
 			.textContainer > h3 {
-				text-align: center;
 				margin: 2.5vh 0;
+				text-align: center;
 			}
 
 			.textContainer > p {
@@ -160,12 +161,11 @@
 
 			.visuallyHidden:not(:focus):not(:active) {
 				position: absolute !important;
-				clip: rect(1px 1px 1px 1px);
+				width: 1px !important;
+				height: 1px !important;
+				padding: 0 !important;
+				border: 0 !important;
 				clip: rect(1px, 1px, 1px, 1px);
-				padding:0 !important;
-				border:0 !important;
-				height: 1px !important; 
-				width: 1px !important; 
 				overflow: hidden;
 				white-space: nowrap !important;
 			}
@@ -177,15 +177,15 @@
 			@media (orientation: landscape) {
 
 				.board {
+					left: 50%;
 					width: 80vh;
 					height: 80vh;
-					left: 50%;
 					margin: -39.5vh 0 0 -40vh;
 				}
 
 				.tile {
-					height: 19vh;
 					width: 19vh;
+					height: 19vh;
 					font-size: 10vh;
 				}
 
@@ -196,8 +196,8 @@
 				}
 
 				.shuffleBtn {
-					background-size: 7.7vh 7.7vh;
 					left: -25vh;
+					background-size: 7.7vh 7.7vh;
 				}
 
 				.openAboutBtn {
@@ -209,16 +209,16 @@
 				}
 
 				.closeAboutBtn {
-					right: 3vh;
 					top: 3vh;
+					right: 3vh;
 					width: 13vh;
 					height: 13vh;
 				}
 
 				.closeAboutBtn::before,
 				.closeAboutBtn::after {
-					right: -0.5vh;
 					top: 5.5vh;
+					right: -0.5vh;
 					width: 14vh;
 					height: 2vh;
 				}
@@ -226,8 +226,8 @@
 				.textArea {
 					top: 50%;
 					left: 50%;
-					height: 80vh;
 					width: 96vw;
+					height: 80vh;
 					margin: -40vh 0 0 -48vw;
 				}
 
@@ -255,23 +255,23 @@
 				}
 
 				.board {
+					left: 50%;
 					width: 400px;
 					height: 400px;
-					left: 50%;
 					margin: -200px 0 0 -200px;
 				}
 
 				.tile {
-					height: 96px;
 					width: 96px;
+					height: 96px;
 					font-size: 39px;
 				}
 
 				.textArea {
 					top: 50%;
 					left: 50%;
-					height: 380px;
 					width: 520px;
+					height: 380px;
 					margin: -190px 0 0 -260px;
 					opacity: 1;
 				}
@@ -300,8 +300,8 @@
 				}
 
 				.shuffleBtn {
-					background-size: 35px 35px;
 					left: -76px;
+					background-size: 35px 35px;
 				}
 
 				.openAboutBtn {
@@ -313,12 +313,12 @@
 				}
 
 				.closeAboutBtn {
-					border-radius: 50%;
-					background-color: white;
 					top: -70px;
 					right: -70px;
 					width: 60px;
 					height: 60px;
+					background-color: white;
+					border-radius: 50%;
 				}
 
 				.closeAboutBtn::before,
@@ -687,7 +687,6 @@
 				renderBoard();
 				activateButtons();
 				makeBoardResponsive();
-
 			}
 
 			board = document.body.querySelector(".board");
