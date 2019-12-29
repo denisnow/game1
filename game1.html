@@ -374,7 +374,7 @@
 		<script>
 
 			var board,          // board element
-				emptyBoard;     // clone of "empty" board element	
+				emptyBoard;     // clone of "empty" board element
 
 			function makeBoard() {
 
@@ -382,84 +382,79 @@
 					voidC,	    // void coordinates
 					about,      // section element with information about game
 					shuffleBtn; // button to shuffle tiles
-			
-				function renderBoard() {
-					
-					function makeMatrixAndRenderTiles() {
 
-						var arr, tileWrapper, tile, 
-							arrIndex = 0;
+				function renderTiles() {
 
-						function makeArray() {
+					var arr, tileWrapper, tile,
+						arrIndex = 0;
 
-							var isSolvable;
+					function makeArray() {
 
-							function shuffleArray() {
+						var isSolvable;
 
-								var randomIndex, temp;
+						function shuffleArray() {
 
-								arr.map(function(value, index) {
-									randomIndex = Math.floor(Math.random()*16);
-									if (arr[randomIndex] !== value) {
-										temp = arr[randomIndex];
-										arr[randomIndex] = value;
-										arr[index] = temp;
-									}
-								});
-							}
+							var randomIndex, temp;
 
-							function checkIsSolvable() {
-
-								var nullIndex,
-									inversionCount = 0;
-
-								arr.map(function(value, index) {
-									if (value === 0) nullIndex = index;
-									if (value > 1) for (i = index+1; i < 16; i++) {
-										if (value > arr[i] && arr[i] !== 0) inversionCount++;
-									}
-
-								});
-								if (
-									(!(inversionCount%2) && ((nullIndex > 3 && nullIndex < 8) || (nullIndex > 11 && nullIndex < 16)))
-									||
-									((inversionCount%2) && (nullIndex < 4 || (nullIndex > 7 && nullIndex < 12)))
-								) isSolvable = true;
-							}
-
-							arr = [];
-							for (var i = 0; i < 16; i++) arr.push(i);
-							while (!isSolvable) {
-								shuffleArray();
-								checkIsSolvable();
-							}
+							arr.map(function(value, index) {
+								randomIndex = Math.floor(Math.random()*16);
+								if (arr[randomIndex] !== value) {
+									temp = arr[randomIndex];
+									arr[randomIndex] = value;
+									arr[index] = temp;
+								}
+							});
 						}
 
-						makeArray();
-						matrix = [];
-						for (var i = 0; i < 4; i++) {
-							matrix[i] = [];
-							for (var j = 0; j < 4; j++) {
-								if (arr[arrIndex]) {
-									tileWrapper = document.createElement("div");
-									tileWrapper.className = "tileWrapper";
-									tileWrapper.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
-									tileWrapper.m=i;
-									tileWrapper.n=j;
-									tile = document.createElement("div");
-									tile.className = "tile";
-									tile.textContent = arr[arrIndex];
-									tileWrapper.appendChild(tile);
-									board.appendChild(tileWrapper);
-									matrix[i][j] = tileWrapper;
+						function checkIsSolvable() {
+
+							var nullIndex,
+								inversionCount = 0;
+
+							arr.map(function(value, index) {
+								if (value === 0) nullIndex = index;
+								if (value > 1) for (i = index+1; i < 16; i++) {
+									if (value > arr[i] && arr[i] !== 0) inversionCount++;
 								}
-								else voidC = {m: i, n: j};
-								arrIndex++;
-							}
+
+							});
+							if (
+								(!(inversionCount%2) && ((nullIndex > 3 && nullIndex < 8) || (nullIndex > 11 && nullIndex < 16)))
+								||
+								((inversionCount%2) && (nullIndex < 4 || (nullIndex > 7 && nullIndex < 12)))
+							) isSolvable = true;
+						}
+
+						arr = [];
+						for (var i = 0; i < 16; i++) arr.push(i);
+						while (!isSolvable) {
+							shuffleArray();
+							checkIsSolvable();
 						}
 					}
 
-					makeMatrixAndRenderTiles();
+					makeArray();
+					matrix = [];
+					for (var i = 0; i < 4; i++) {
+						matrix[i] = [];
+						for (var j = 0; j < 4; j++) {
+							if (arr[arrIndex]) {
+								tileWrapper = document.createElement("div");
+								tileWrapper.className = "tileWrapper";
+								tileWrapper.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
+								tileWrapper.m=i;
+								tileWrapper.n=j;
+								tile = document.createElement("div");
+								tile.className = "tile";
+								tile.textContent = arr[arrIndex];
+								tileWrapper.appendChild(tile);
+								board.appendChild(tileWrapper);
+								matrix[i][j] = tileWrapper;
+							}
+							else voidC = {m: i, n: j};
+							arrIndex++;
+						}
+					}
 				}
 
 				function activateButtons() {
@@ -684,7 +679,7 @@
 					board.makeTilesResponsive();
 				}
 
-				renderBoard();
+				renderTiles();
 				activateButtons();
 				makeBoardResponsive();
 			}
