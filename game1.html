@@ -471,10 +471,13 @@
 						function makeShuffleBtnResponsive() {
 
 							shuffleBtn.addEventListener("click", function() {
-								document.body.removeChild(board);
-								board = emptyBoard.cloneNode(true);
-								document.body.appendChild(board);
-								makeBoard();
+								shuffleBtn.className += " hidden";
+								for (var i = 0; i < 4; i++)
+									for (var j = 0; j < 4; j++)
+										if(matrix[i][j]) board.removeChild(matrix[i][j]);
+								renderTiles();
+								board.isSorted = false;
+								board.makeTilesResponsive();
 							});
 						}
 
@@ -685,7 +688,7 @@
 			}
 
 			board = document.body.querySelector(".board");
-			emptyBoard = board.cloneNode(true);
+			//emptyBoard = board.cloneNode(true);
 			makeBoard();
 
 		</script>
