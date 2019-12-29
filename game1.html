@@ -457,53 +457,53 @@
 					}
 				}
 
-				function activateButtons() {
-
-					var openAboutBtn, closeAboutBtn;
-
-					function displayOpenAboutBtn() {
-
-						openAboutBtn.className = "openAboutBtn";
-					}
-
-					function makeShuffleBtnResponsive() {
-
-						shuffleBtn.addEventListener("click", function() {
-							document.body.removeChild(board);
-							board = emptyBoard.cloneNode(true);
-							document.body.appendChild(board);
-							makeBoard();
-						});
-					}
-
-					function makeOpenAboutBtnResponsive() {
-
-						about = document.body.querySelector(".about");
-						openAboutBtn.addEventListener("click", function() {
-							board.className += " hidden";
-							about.className = "textArea about";
-						});
-					}
-
-					function makeCloseAboutBtnResponsive() {
-
-						closeAboutBtn.addEventListener("click", function() {
-							about.className += " hidden";
-							board.className = "board";
-						});
-					}
-
-					shuffleBtn = document.body.querySelector(".shuffleBtn");
-					openAboutBtn = document.body.querySelector(".openAboutBtn");
-					closeAboutBtn = document.body.querySelector(".closeAboutBtn");
-
-					makeOpenAboutBtnResponsive();
-					displayOpenAboutBtn();
-					makeCloseAboutBtnResponsive();
-					makeShuffleBtnResponsive();
-				}
-
 				function makeBoardResponsive() {
+
+					function activateButtons() {
+
+						var openAboutBtn, closeAboutBtn;
+
+						function displayOpenAboutBtn() {
+
+							openAboutBtn.className = "openAboutBtn";
+						}
+
+						function makeShuffleBtnResponsive() {
+
+							shuffleBtn.addEventListener("click", function() {
+								document.body.removeChild(board);
+								board = emptyBoard.cloneNode(true);
+								document.body.appendChild(board);
+								makeBoard();
+							});
+						}
+
+						function makeOpenAboutBtnResponsive() {
+
+							about = document.body.querySelector(".about");
+							openAboutBtn.addEventListener("click", function() {
+								board.className += " hidden";
+								about.className = "textArea about";
+							});
+						}
+
+						function makeCloseAboutBtnResponsive() {
+
+							closeAboutBtn.addEventListener("click", function() {
+								about.className += " hidden";
+								board.className = "board";
+							});
+						}
+
+						shuffleBtn = document.body.querySelector(".shuffleBtn");
+						openAboutBtn = document.body.querySelector(".openAboutBtn");
+						closeAboutBtn = document.body.querySelector(".closeAboutBtn");
+
+						makeOpenAboutBtnResponsive();
+						displayOpenAboutBtn();
+						makeCloseAboutBtnResponsive();
+						makeShuffleBtnResponsive();
+					}
 
 					board.processMovableTiles = function(classString) {
 
@@ -677,10 +677,10 @@
 					};
 
 					board.makeTilesResponsive();
+					activateButtons();
 				}
 
 				renderTiles();
-				activateButtons();
 				makeBoardResponsive();
 			}
 
