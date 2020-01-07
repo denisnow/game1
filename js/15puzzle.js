@@ -60,7 +60,8 @@ function renderTiles() {
             if (arr[arrIndex]) {
                 tileWrapper = document.createElement("div");
                 tileWrapper.className = "tileWrapper";
-                tileWrapper.style.transform = "translate(" + j*100 + "%, " + i*100 + "%)";
+                if (document.documentElement.style.transform !== undefined ) tileWrapper.style.transform = "translate(" + j*100 + "%, " + i*100 + "%)";
+                else tileWrapper.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
                 tileWrapper.m=i;
                 tileWrapper.n=j;
                 tile = document.createElement("div");
@@ -77,6 +78,29 @@ function renderTiles() {
 }
 
 function makeBoardResponsive() {
+
+    function setMovingPercentCounterValues() {
+
+        function setInitialValue() {
+
+            board.counterInitial = (document.documentElement.style.transform !== undefined ) ? 0 : 1;
+        }
+
+        function setStepValue() {
+
+            if (document.documentElement.style.transform !== undefined ) board.counterStep = (document.documentElement.style.transition !== undefined ) ? 100 : 20;
+            else board.counterStep = 2;
+        }
+
+        function setMaxValue() {
+
+            board.counterMax = (document.documentElement.style.transform !== undefined ) ? 100 : 25;
+        }
+
+        setInitialValue();
+        setStepValue();
+        setMaxValue();
+    }
 
     function activateButtons() {
 
@@ -138,7 +162,6 @@ function makeBoardResponsive() {
     board.clickHandler = function(e) {
 
         if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
-            console.log(e.target.parentNode.n + " " + e.target.parentNode.m)
             board.makeTilesStatic();
             board.targetElement = e.target.parentNode;
             board.moveTiles();
@@ -165,49 +188,53 @@ function makeBoardResponsive() {
     board.moveTilesUp = function() {
 
         for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
-            matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i-board.percentCount) + "%)";
-            if (board.percentCount === 100) {
+            if (document.documentElement.style.transform !== undefined ) matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i-board.percentCount) + "%)";
+            else matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i-board.percentCount) + "%;");
+            if (board.percentCount === board.counterMax) {
                 matrix[i][voidC.n].m--;
                 matrix[i-1][voidC.n] = matrix[i][voidC.n];
             }
         }
-        if (board.percentCount === 100) voidC.m += board.amountOfTiles;
+        if (board.percentCount === board.counterMax) voidC.m += board.amountOfTiles;
     };
 
     board.moveTilesDown = function() {
 
         for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
-            matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i+board.percentCount) + "%)";
-            if (board.percentCount === 100) {
+            if (document.documentElement.style.transform !== undefined ) matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i+board.percentCount) + "%)";
+            else matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i+board.percentCount) + "%;");
+            if (board.percentCount === board.counterMax) {
                 matrix[i][voidC.n].m++;
                 matrix[i+1][voidC.n] = matrix[i][voidC.n];
             }
         }
-        if (board.percentCount === 100) voidC.m -= board.amountOfTiles;
+        if (board.percentCount === board.counterMax) voidC.m -= board.amountOfTiles;
     };	
     
     board.moveTilesToTheRight = function() {
 
         for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
-            matrix[voidC.m][i].style.transform = "translate(" + (100*i+board.percentCount) + "%, " + 100*voidC.m + "%)";
-            if (board.percentCount === 100) {
+            if (document.documentElement.style.transform !== undefined ) matrix[voidC.m][i].style.transform = "translate(" + (100*i+board.percentCount) + "%, " + 100*voidC.m + "%)";
+            else matrix[voidC.m][i].setAttribute("style", "left: " + (25*i+board.percentCount) + "%; top: " + 25*voidC.m + "%;");
+            if (board.percentCount === board.counterMax) {
                 matrix[voidC.m][i].n++;
                 matrix[voidC.m][i+1] = matrix[voidC.m][i];
             }
         }
-        if (board.percentCount === 100) voidC.n -= board.amountOfTiles;
+        if (board.percentCount === board.counterMax) voidC.n -= board.amountOfTiles;
     };
 
     board.moveTilesToTheLeft = function() {
 
         for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
-            matrix[voidC.m][i].style.transform = "translate(" + (100*i-board.percentCount) + "%, " + 100*voidC.m + "%)";
-            if (board.percentCount === 100) {
+            if (document.documentElement.style.transform !== undefined ) matrix[voidC.m][i].style.transform = "translate(" + (100*i-board.percentCount) + "%, " + 100*voidC.m + "%)";
+            else matrix[voidC.m][i].setAttribute("style", "left: " + (25*i-board.percentCount) + "%; top: " + 25*voidC.m + "%;");
+            if (board.percentCount === board.counterMax) {
                 matrix[voidC.m][i].n--;
                 matrix[voidC.m][i-1] = matrix[voidC.m][i];
             }
         }
-        if (board.percentCount === 100) voidC.n += board.amountOfTiles;
+        if (board.percentCount === board.counterMax) voidC.n += board.amountOfTiles;
     };
 
     board.setTilesMovingDirection = function() {
@@ -246,21 +273,22 @@ function makeBoardResponsive() {
 
     board.moveTiles = function() {
 
-        board.percentCount = 0;
+        board.percentCount = board.counterInitial;
         board.amountOfTiles = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
         board.setTilesMovingDirection();
         board.intervalID = setInterval(function() {
-            board.percentCount += 20;
+            board.percentCount += board.counterStep;
             board.moveTilesPartially();
-            if (board.percentCount === 100) {
+            if (board.percentCount === board.counterMax) {
                 clearInterval(board.intervalID);
                 matrix[voidC.m][voidC.n] = 0;
                 if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
                 if (!board.isSorted) board.makeTilesResponsive();
             }
-        }, 4);
+        }, 3);
     };
 
+    setMovingPercentCounterValues();
     board.makeTilesResponsive();
     activateButtons();
 }
