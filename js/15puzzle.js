@@ -1,7 +1,6 @@
 var board,      // board element
     matrix,	    // 2D array containing tile elements
     voidC,	    // void coordinates
-    about,      // section element with information about game
     shuffleBtn; // button to shuffle tiles
 
 function renderTiles() {
@@ -104,7 +103,8 @@ function makeBoardResponsive() {
 
     function activateButtons() {
 
-        var openAboutBtn, closeAboutBtn;
+        var about = document.body.querySelector(".about"),
+            openAboutBtn = board.querySelector(".openAboutBtn");
 
         function displayOpenAboutBtn() {
 
@@ -126,7 +126,6 @@ function makeBoardResponsive() {
 
         function makeOpenAboutBtnResponsive() {
 
-            about = document.body.querySelector(".about");
             openAboutBtn.addEventListener("click", function() {
                 board.className += " hidden";
                 about.className = "textArea about";
@@ -135,16 +134,15 @@ function makeBoardResponsive() {
 
         function makeCloseAboutBtnResponsive() {
 
+            var closeAboutBtn = document.body.querySelector(".closeAboutBtn");
+
             closeAboutBtn.addEventListener("click", function() {
                 about.className += " hidden";
                 board.className = "board";
             });
         }
 
-        shuffleBtn = document.body.querySelector(".shuffleBtn");
-        openAboutBtn = document.body.querySelector(".openAboutBtn");
-        closeAboutBtn = document.body.querySelector(".closeAboutBtn");
-
+        shuffleBtn = board.querySelector(".shuffleBtn");
         makeOpenAboutBtnResponsive();
         displayOpenAboutBtn();
         makeCloseAboutBtnResponsive();
