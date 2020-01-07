@@ -60,7 +60,7 @@ function renderTiles() {
             if (arr[arrIndex]) {
                 tileWrapper = document.createElement("div");
                 tileWrapper.className = "tileWrapper";
-                tileWrapper.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
+                tileWrapper.style.transform = "translate(" + j*100 + "%, " + i*100 + "%)";
                 tileWrapper.m=i;
                 tileWrapper.n=j;
                 tile = document.createElement("div");
@@ -138,6 +138,7 @@ function makeBoardResponsive() {
     board.clickHandler = function(e) {
 
         if (e.target.parentNode.m === voidC.m || e.target.parentNode.n === voidC.n) {
+            console.log(e.target.parentNode.n + " " + e.target.parentNode.m)
             board.makeTilesStatic();
             board.targetElement = e.target.parentNode;
             board.moveTiles();
@@ -164,82 +165,50 @@ function makeBoardResponsive() {
     board.moveTilesUp = function() {
 
         for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
-            matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i-board.percentCount) + "%;");
-            if (board.percentCount === 25) {
+            matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i-board.percentCount) + "%)";
+            if (board.percentCount === 100) {
                 matrix[i][voidC.n].m--;
                 matrix[i-1][voidC.n] = matrix[i][voidC.n];
             }
         }
-        if (board.percentCount === 25) voidC.m += board.amountOfTiles;
+        if (board.percentCount === 100) voidC.m += board.amountOfTiles;
     };
 
     board.moveTilesDown = function() {
 
         for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
-            matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i+board.percentCount) + "%;");
-            if (board.percentCount === 25) {
+            matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i+board.percentCount) + "%)";
+            if (board.percentCount === 100) {
                 matrix[i][voidC.n].m++;
                 matrix[i+1][voidC.n] = matrix[i][voidC.n];
             }
         }
-        if (board.percentCount === 25) voidC.m -= board.amountOfTiles;
-    };
-
-    /*
-    board.verticalMove = function() {
-
-        board.vd = (voidC.m-board.targetElement.m)/board.amountOfTiles; //vector direction
-
-        for (var i = voidC.m-board.vd; i*board.vd >= board.targetElement.m*board.vd; i -= board.vd) {
-            matrix[i][voidC.n].setAttribute("style", "left: " + 100*voidC.n + "px; top: " + (100*i+board.percentCount*board.vd) + "px;");
-            if (board.percentCount === 100) {
-                matrix[i][voidC.n].m += board.vd;
-                matrix[i+board.vd][voidC.n] = matrix[i][voidC.n];
-            }
-        }
-        if (board.percentCount === 100) voidC.m -= board.amountOfTiles*board.vd;
-    };
-    */				
+        if (board.percentCount === 100) voidC.m -= board.amountOfTiles;
+    };	
     
     board.moveTilesToTheRight = function() {
 
         for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
-            matrix[voidC.m][i].setAttribute("style", "left: " + (25*i+board.percentCount) + "%; top: " + 25*voidC.m + "%;");
-            if (board.percentCount === 25) {
+            matrix[voidC.m][i].style.transform = "translate(" + (100*i+board.percentCount) + "%, " + 100*voidC.m + "%)";
+            if (board.percentCount === 100) {
                 matrix[voidC.m][i].n++;
                 matrix[voidC.m][i+1] = matrix[voidC.m][i];
             }
         }
-        if (board.percentCount === 25) voidC.n -= board.amountOfTiles;
+        if (board.percentCount === 100) voidC.n -= board.amountOfTiles;
     };
 
     board.moveTilesToTheLeft = function() {
 
         for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
-            matrix[voidC.m][i].setAttribute("style", "left: " + (25*i-board.percentCount) + "%; top: " + 25*voidC.m + "%;");
-            if (board.percentCount === 25) {
+            matrix[voidC.m][i].style.transform = "translate(" + (100*i-board.percentCount) + "%, " + 100*voidC.m + "%)";
+            if (board.percentCount === 100) {
                 matrix[voidC.m][i].n--;
                 matrix[voidC.m][i-1] = matrix[voidC.m][i];
             }
         }
-        if (board.percentCount === 25) voidC.n += board.amountOfTiles;
+        if (board.percentCount === 100) voidC.n += board.amountOfTiles;
     };
-
-    /*
-    board.horizontalMove = function() {
-
-        board.vd = (voidC.n-board.targetElement.n)/board.amountOfTiles; //vector direction
-
-        for (var i = voidC.n-board.vd; i*board.vd >= board.targetElement.n*board.vd; i -= board.vd) {
-            matrix[voidC.m][i].setAttribute("style", "left: " + (100*i+board.percentCount*board.vd) + "px; top: " + 100*voidC.m + "px;");
-            if (board.percentCount === 100) {
-                matrix[voidC.m][i].n += board.vd;
-                matrix[voidC.m][i+board.vd] = matrix[voidC.m][i];
-            }
-        }
-        if (board.percentCount === 100) voidC.n -= board.amountOfTiles*board.vd;
-    };
-    */
 
     board.setTilesMovingDirection = function() {
 
@@ -252,14 +221,6 @@ function makeBoardResponsive() {
             else board.moveTilesPartially = board.moveTilesToTheLeft;
         }
     };
-
-    /*
-    board.checkMovingAxis = function() {
-
-        if (board.targetElement.m !== voidC.m) board.moveTilesPartially = board.verticalMove;
-        else board.moveTilesPartially = board.horizontalMove;
-    };
-    */
 
     board.checkIsSorted = function() {
 
@@ -285,19 +246,19 @@ function makeBoardResponsive() {
 
     board.moveTiles = function() {
 
-        board.percentCount = 1;
+        board.percentCount = 0;
         board.amountOfTiles = Math.abs(board.targetElement.m-voidC.m || board.targetElement.n-voidC.n);
         board.setTilesMovingDirection();
         board.intervalID = setInterval(function() {
-            board.percentCount += 2;
+            board.percentCount += 20;
             board.moveTilesPartially();
-            if (board.percentCount === 25) {
+            if (board.percentCount === 100) {
                 clearInterval(board.intervalID);
                 matrix[voidC.m][voidC.n] = 0;
                 if (voidC.m === 3 && voidC.n === 3) board.checkIsSorted();
                 if (!board.isSorted) board.makeTilesResponsive();
             }
-        }, 3);
+        }, 4);
     };
 
     board.makeTilesResponsive();
