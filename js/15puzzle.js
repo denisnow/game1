@@ -87,7 +87,9 @@ function makeBoardResponsive() {
 
         function setStepValue() {
 
-            if (board.isTransformSupported) board.counterStep = (document.documentElement.style.transition !== undefined ) ? 100 : 20;
+            var isTransitionSupported = document.documentElement.style.transition !== undefined;
+
+            if (board.isTransformSupported) board.counterStep = isTransitionSupported ? 100 : 20;
             else board.counterStep = 2;
         }
 
