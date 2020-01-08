@@ -82,20 +82,21 @@ function makeBoardResponsive() {
 
         function setInitialValue() {
 
-            board.counterInitial = (document.documentElement.style.transform !== undefined ) ? 0 : 1;
+            board.counterInitial = board.isTransformSupported ? 0 : 1;
         }
 
         function setStepValue() {
 
-            if (document.documentElement.style.transform !== undefined ) board.counterStep = (document.documentElement.style.transition !== undefined ) ? 100 : 20;
+            if (board.isTransformSupported) board.counterStep = (document.documentElement.style.transition !== undefined ) ? 100 : 20;
             else board.counterStep = 2;
         }
 
         function setMaxValue() {
 
-            board.counterMax = (document.documentElement.style.transform !== undefined ) ? 100 : 25;
+            board.counterMax = (board.isTransformSupported) ? 100 : 25;
         }
 
+        board.isTransformSupported = document.documentElement.style.transform !== undefined;
         setInitialValue();
         setStepValue();
         setMaxValue();
@@ -186,7 +187,7 @@ function makeBoardResponsive() {
     board.moveTilesUp = function() {
 
         for (var i = voidC.m+1; i <= board.targetElement.m; i++) {
-            if (document.documentElement.style.transform !== undefined ) matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i-board.percentCount) + "%)";
+            if (board.isTransformSupported) matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i-board.percentCount) + "%)";
             else matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i-board.percentCount) + "%;");
             if (board.percentCount === board.counterMax) {
                 matrix[i][voidC.n].m--;
@@ -199,7 +200,7 @@ function makeBoardResponsive() {
     board.moveTilesDown = function() {
 
         for (var i = voidC.m-1; i >= board.targetElement.m; i--) {
-            if (document.documentElement.style.transform !== undefined ) matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i+board.percentCount) + "%)";
+            if (board.isTransformSupported) matrix[i][voidC.n].style.transform = "translate(" + 100*voidC.n + "%, " + (100*i+board.percentCount) + "%)";
             else matrix[i][voidC.n].setAttribute("style", "left: " + 25*voidC.n + "%; top: " + (25*i+board.percentCount) + "%;");
             if (board.percentCount === board.counterMax) {
                 matrix[i][voidC.n].m++;
@@ -208,11 +209,11 @@ function makeBoardResponsive() {
         }
         if (board.percentCount === board.counterMax) voidC.m -= board.amountOfTiles;
     };	
-    
+
     board.moveTilesToTheRight = function() {
 
         for (var i = voidC.n-1; i >= board.targetElement.n; i--) {
-            if (document.documentElement.style.transform !== undefined ) matrix[voidC.m][i].style.transform = "translate(" + (100*i+board.percentCount) + "%, " + 100*voidC.m + "%)";
+            if (board.isTransformSupported) matrix[voidC.m][i].style.transform = "translate(" + (100*i+board.percentCount) + "%, " + 100*voidC.m + "%)";
             else matrix[voidC.m][i].setAttribute("style", "left: " + (25*i+board.percentCount) + "%; top: " + 25*voidC.m + "%;");
             if (board.percentCount === board.counterMax) {
                 matrix[voidC.m][i].n++;
@@ -225,7 +226,7 @@ function makeBoardResponsive() {
     board.moveTilesToTheLeft = function() {
 
         for (var i = voidC.n+1; i <= board.targetElement.n; i++) {
-            if (document.documentElement.style.transform !== undefined ) matrix[voidC.m][i].style.transform = "translate(" + (100*i-board.percentCount) + "%, " + 100*voidC.m + "%)";
+            if (board.isTransformSupported) matrix[voidC.m][i].style.transform = "translate(" + (100*i-board.percentCount) + "%, " + 100*voidC.m + "%)";
             else matrix[voidC.m][i].setAttribute("style", "left: " + (25*i-board.percentCount) + "%; top: " + 25*voidC.m + "%;");
             if (board.percentCount === board.counterMax) {
                 matrix[voidC.m][i].n--;
