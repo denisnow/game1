@@ -143,6 +143,10 @@ function makeBoardResponsive() {
                 about.className += " hidden";
                 board.className = "board";
             });
+            document.addEventListener("keydown", function(evt) {
+
+                if (evt.keyCode === 27 && about.className === "textArea about") closeAboutBtn.click();
+            });
         }
 
         shuffleBtn = board.querySelector(".shuffleBtn");
@@ -162,6 +166,7 @@ function makeBoardResponsive() {
 
         makeTabIndexCounter();
         board.addEventListener("keydown", function(evt) {
+
             if ((evt.keyCode === 13 || evt.keyCode === 32) && evt.target.className === "tileWrapper clickable") {
                 evt.target.firstChild.click();
             }
