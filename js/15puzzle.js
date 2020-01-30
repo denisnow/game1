@@ -59,7 +59,7 @@ function renderTiles() {
             if (arr[arrIndex]) {
                 tileWrapper = document.createElement("div");
                 tileWrapper.className = "tileWrapper";
-                if (document.documentElement.style.transform !== undefined ) tileWrapper.style.transform = "translate(" + j*100 + "%, " + i*100 + "%)";
+                if (document.documentElement.style.transform !== undefined) tileWrapper.style.transform = "translate(" + j*100 + "%, " + i*100 + "%)";
                 else tileWrapper.setAttribute("style", "left: " + 25*j + "%; top: " + 25*i + "%;");
                 tileWrapper.m=i;
                 tileWrapper.n=j;
@@ -152,11 +152,35 @@ function makeBoardResponsive() {
         makeShuffleBtnResponsive();
     }
 
+    function activateKeyboardSupport() {
+
+        function makeTabIndexCounter() {
+
+            board.tabIndexCount = [];
+            for (var i = 0; i < 16; i++) board.tabIndexCount.push(0);
+        }
+
+        makeTabIndexCounter();
+        board.addEventListener("keydown", function(evt) {
+            if ((evt.keyCode === 13 || evt.keyCode === 32) && evt.target.className === "tileWrapper clickable") {
+                evt.target.firstChild.click();
+            }
+        });
+    }
+
     board.processMovableTiles = function(classString) {
 
         for (var i = 0; i < 4; i++) {
-            if (i !== voidC.n) this.setClassName(matrix[voidC.m][i], classString);
-            if (i !== voidC.m) this.setClassName(matrix[i][voidC.n], classString);
+            if (i !== voidC.n) {
+                this.setClassName(matrix[voidC.m][i], classString);
+                if (classString === "tileWrapper clickable") matrix[voidC.m][i].tabIndex = ((4*voidC.m + i + 1)*1000 + board.tabIndexCount[4*voidC.m + i]++);
+                if (classString === "tileWrapper") matrix[voidC.m][i].tabIndex = -1;
+            }
+            if (i !== voidC.m) {
+                this.setClassName(matrix[i][voidC.n], classString);
+                if (classString === "tileWrapper clickable") matrix[i][voidC.n].tabIndex = ((4*i + voidC.n + 1)*1000 + board.tabIndexCount[4*i + voidC.n]++);
+                if (classString === "tileWrapper") matrix[i][voidC.n].tabIndex = -1;
+            }
         }
     };
 
@@ -290,6 +314,7 @@ function makeBoardResponsive() {
     };
 
     setMovingPercentCounterValues();
+    activateKeyboardSupport();
     board.makeTilesResponsive();
     activateButtons();
 }
