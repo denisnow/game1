@@ -179,12 +179,12 @@ function makeBoardResponsive() {
             if (i !== voidC.n) {
                 this.setClassName(matrix[voidC.m][i], classString);
                 if (classString === "tileWrapper clickable") matrix[voidC.m][i].tabIndex = ((4*voidC.m + i + 1)*1000 + board.tabIndexCount[4*voidC.m + i]++);
-                if (classString === "tileWrapper") matrix[voidC.m][i].tabIndex = -1;
+                if (classString === "tileWrapper") matrix[voidC.m][i].removeAttribute('tabindex');
             }
             if (i !== voidC.m) {
                 this.setClassName(matrix[i][voidC.n], classString);
                 if (classString === "tileWrapper clickable") matrix[i][voidC.n].tabIndex = ((4*i + voidC.n + 1)*1000 + board.tabIndexCount[4*i + voidC.n]++);
-                if (classString === "tileWrapper") matrix[i][voidC.n].tabIndex = -1;
+                if (classString === "tileWrapper") matrix[i][voidC.n].removeAttribute('tabindex');
             }
         }
     };
