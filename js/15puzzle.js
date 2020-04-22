@@ -286,7 +286,7 @@ function makeBoardResponsive() {
             for (var j = 3; j >= 0; j--) {
                 if (matrix[i][j]) {
                     if (this.temp) {
-                        if (i === 1 && j === 1) {
+                        if (i === 0 && j === 1) {
                             this.isSorted = true;
                             window.setTimeout(function() {
                                 shuffleBtn.className = "shuffleBtn";
