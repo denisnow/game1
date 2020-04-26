@@ -16,14 +16,14 @@ function renderTiles() {
 
             var randomIndex, temp;
 
-            arr.map(function(value, index) {
+            for (var i = 1; i < 16; i++) {
                 randomIndex = Math.floor(Math.random()*16);
-                if (arr[randomIndex] !== value) {
+                if (randomIndex !== i) {
                     temp = arr[randomIndex];
-                    arr[randomIndex] = value;
-                    arr[index] = temp;
+                    arr[randomIndex] = arr[i];
+                    arr[i] = temp;
                 }
-            });
+            }
         }
 
         function checkIsSolvable() {
@@ -31,11 +31,14 @@ function renderTiles() {
             var nullIndex,
                 inversionCount = 0;
 
-            arr.map(function(value, index) {
-                if (value === 0) nullIndex = index;
-                else if (value > 1) for (var i = index+1; i < 16; i++)
-                    if (value > arr[i] && arr[i] !== 0) inversionCount++;
-            });
+            for (i = 0; i < 15; i++) {
+                if (arr[i] > 1) {
+                    for (var j = i+1; j < 16; j++) {
+                        if (arr[i] > arr[j] && arr[j] !== 0) inversionCount++;
+                    }
+                }
+                else if (arr[i] === 0) nullIndex = i;
+            }
             if (
                 (!(inversionCount%2) && ((nullIndex > 3 && nullIndex < 8) || (nullIndex > 11 && nullIndex < 16)))
                 ||
