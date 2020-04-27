@@ -16,7 +16,7 @@ function renderTiles() {
 
             var randomIndex, temp;
 
-            for (var i = 1; i < 16; i++) {
+            for (var i = 0; i < 16; i++) {
                 randomIndex = Math.floor(Math.random()*16);
                 if (randomIndex !== i) {
                     temp = arr[randomIndex];
